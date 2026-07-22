@@ -1,6 +1,7 @@
 # [Project Title]
 
 **Group:** Brenna Pratt, Nick Mergendahl, Sasha Sweat
+
 **Course:** Psych 755, Summer 26
 
 One or two sentences on what this project asks and what it found. Replace this before you submit.
