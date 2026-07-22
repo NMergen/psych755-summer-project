@@ -1,4 +1,4 @@
-# [Project Title]
+# [Public Transportation and Group Setting Sentiment]
 
 **Group:** Brenna Pratt, Nick Mergendahl, Sasha Sweat
 
