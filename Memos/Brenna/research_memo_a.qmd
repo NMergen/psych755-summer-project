@@ -1,6 +1,6 @@
 ---
-title: Research Memo Template
-author: "Your Name"
+title: Research Memo
+author: "Brenna Pratt"
 date: "`r lubridate::today()`"
 status: draft
 keywords:
@@ -54,7 +54,7 @@ format:
         \vspace{0.5em}
   docx:
     toc: false
-bibliography: memo_template_refs.bib
+bibliography: references.bib
 execute:
   warning: false
   message: false
@@ -67,12 +67,12 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from IPython.display import Markdown, display
 
-mpg = sns.load_dataset("mpg")
+#mpg = sns.load_dataset("mpg")
 ```
 
 ## Analytical Or Research Question
 
-Does preference for certain modes of transportation predict public transportation use?
+Does positive advice regarding group speaking correspond to public transportation use?
 
 ## Answer, Response, & Summary of Results
 
