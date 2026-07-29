@@ -72,11 +72,13 @@ from IPython.display import Markdown, display
 
 ## Analytical Or Research Question
 
-Are individuals who feel comfortable in group settings more likely to use public transportation on a regular basis?
+Are individuals who feel comfortable in group discussions more likely to use public transportation on a regular basis?
 
 ## Answer, Response, & Summary of Results
 
-Yes it does appear that vehicles have become more efficient over time. Using the `mpg` dataset from Seaborn [@Waskom2021seaborn] we can see that the average fuel efficiency of vehicles has increased over the years.
+Yes, it does appear that individuals who answered 'strongly agree' to the statement "Generally, I am comfortable in group discussions" reported using transportation 8 or more days in a month at a higher rate than those who answered 'strongly disagree'. Individuals who answered strongly disagree also reported never using public in the last three months at a much higher rate than those who answered 'strongly agree'.
+
+![Violin Plot](comtran.png)
 
 ```{python}
 #| label: fig-xx-xxxx
@@ -112,11 +114,11 @@ display(Markdown(
 ))
 ```
 
-@fig-mpg-trend presents two overlayed visualizations examining fuel efficiency: a line chart showing average miles per gallon (MPG) by model year, and a violin plot displaying the full MPG distribution for each year. The data spans 1970 through 1982. The line plots average MPG on the y-axis (ranging from approximately 15 to 35) against model year on the x-axis. The violins plot vehicle MPG values are distributed within each year. Reading the line chart, we can see that average fuel efficiency rose from roughly 17 MPG in 1970 to approximately 31 MPG by 1982. Efficiency nearly doubling. The early years (1970–1973) show narrow violin shapes clustered between 10 and 25 MPG, whereas later years (1978–1982) display much wider distributions extending well above 40 MPG. Not only did average efficiency improve, but manufacturers also began offering a broader range of fuel-efficient options The sharp rise around 1975–1976 may reflect automaker responses to the 1973 oil crisis and subsequent federal fuel economy standards. Together, these visuals demonstrate that vehicles did become more efficient over time.
+@comtran.pmg presents a violin plot visualization displaying public transportation use and comfort in group conversations: On the y-axis (ranging from never to 8 or more days a month) is a scale of how often partcipants have used pulbic transportation in the last three months. The x-axis displays a likert scale (ranging from strongly agree to strongly disagree) measuring how much the partcipants agreed with the statement "Generally, I am comfortable while participating in group discussions". We are shown narrowing violin shapes clustered around 8 or more days a month for individuals that strongly and somewhat disagreed with the statement. The violin plot also displays much wider distributions extending around never. Together, these visuals demonstrate that individuals who don't feel comfortable in group discussions use public transportation less in a given three month period.
 
 ## Remaining Questions + Uncertainties
 
-Does the trend hold when controlling for vehicle weight, engine displacement, or number of cylinders? The current analysis examines only the marginal relationship between model year and MPG. Additionally, the dataset ends at 1982—it is unclear whether efficiency gains continued at the same rate in subsequent decades or plateaued after initial regulatory pressure subsided.
+Does the trend hold when controlling for age, employment status, and gender? The current analysis examines only general group discussions.
 
 ## References {.unnumbered}
 
