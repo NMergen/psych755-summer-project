@@ -72,11 +72,11 @@ from IPython.display import Markdown, display
 
 ## Analytical Or Research Question
 
-Are individuals who feel comfortable in group settings more likely to use public transportation on a regular basis?
+Are individuals who feel comfortable in group discussions more likely to use public transportation on a regular basis?
 
 ## Answer, Response, & Summary of Results
 
-Yes it does appear that vehicles have become more efficient over time. Using the `mpg` dataset from Seaborn [@Waskom2021seaborn] we can see that the average fuel efficiency of vehicles has increased over the years.
+Yes, it does appear that individuals who answered 'strongly agree' to the statement "Generally, I am comfortable in group discussions" reported using transportation 8 or more days in a month at a higher rate than those who answered 'strongly disagree'. Individuals who answered strongly disagree also reported never using public in the last three months at a much higher rate than those who answered 'strongly agree'.
 
 ```{python}
 #| label: fig-xx-xxxx
