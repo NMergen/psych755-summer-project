@@ -78,6 +78,8 @@ Are individuals who feel comfortable in group discussions more likely to use pub
 
 Yes, it does appear that individuals who answered 'strongly agree' to the statement "Generally, I am comfortable in group discussions" reported using transportation 8 or more days in a month at a higher rate than those who answered 'strongly disagree'. Individuals who answered strongly disagree also reported never using public in the last three months at a much higher rate than those who answered 'strongly agree'.
 
+![Violin Plot](comtran.png)
+
 ```{python}
 #| label: fig-xx-xxxx
 #| fig-cap: "Fuel Efficiency Trends Over Time"
