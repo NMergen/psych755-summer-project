@@ -54,26 +54,10 @@ format:
         \vspace{0.5em}
   docx:
     toc: false
-bibliography: memo_template_refs.bib
 execute:
   warning: false
   message: false
 ---
-```{python}
-#| include: false
-import pandas as pd
-import numpy as np
-import seaborn as sns
-import matplotlib.pyplot as plt
-from IPython.display import Markdown, display
-
-data_a = pd.read_csv('./data/PRCAProlificExport_FileA.csv')
-
-data_b = pd.read_csv('./data/PRCAProlificExport_FileB.csv')
-
-data_c = pd.read_csv('./data/PRCAQualtricsExport_FileC.csv')
-
-```
 
 ```{r}
 options(conflicts.policy = "depends.ok") 
@@ -85,75 +69,73 @@ library(Matrix, exclude = c("expand", "pack", "unpack"))
 library(lme4)
 library(kableExtra, exclude = "group_rows")
 library(car, exclude = c("recode", "some", "logit"))
-# new package!
 library(ggcorrplot)
-
-library(tidyverse)
-library(Matrix, exclude = c("expand", "unpack", "pack"))
-library(lme4)
 library(broom)
 library(skimr)
 library(effects)
-library(car, exclude = c("recode", "some"))
 
 theme_set(theme_classic())
 
 path_data <- "data"
 
-data_c <- read_csv(here::here(path_data, "PRCAQualtricsExport_FileC.csv"), show_col_types = FALSE)
-```
-
-```{r}
-skim(data_c)
-```
-
-```{r}
-data_c <- data_c[complete.cases(data_c[, c("Q5", "Q13", "Q17", "Q26")]), ]
-
+data_c <- read_csv("C:/Users/hardy/OneDrive/Documents/capstone/data/PRCAQualtricsExport_FileC.csv", show_col_types = FALSE)
 ```
 
 ```{r}
 data_c <- data_c |>
-  mutate(Q5_group = recode(Q5, "Strongly disagree" = .5, "Somewhat disagree" = .5, "Neither agree nor disagree" = 0, "Somewhat agree" = -.5, "Strongly agree" = -.5), Q13_group = recode(Q13, "Strongly disagree" = .5, "Somewhat disagree" = .5, "Neither agree nor disagree" = 0, "Somewhat agree" = -.5, "Strongly agree" = -.5), Q17_group = recode(Q17, "Strongly disagree" = .5, "Somewhat disagree" = .5, "Neither agree nor disagree" = 0, "Somewhat agree" = -.5, "Strongly agree" = -.5), Q26_num = recode(Q26, "Never" = 0, "0-1 days a month" = 1, "2-4 days a month" = 2, "4-8 days a month" = 3, "8 or more days a month" = 4))
-```
-
-
-```{r}
-skim(data_c)
+  mutate(Q2 = recode(Q2, "Strongly disagree" = 5, "Somewhat disagree" = 4, "Neither agree nor disagree" = 3, "Somewhat agree" = 2, "Strongly agree" = 1), 
+         Q4 = recode(Q4, "Strongly disagree" = 5, "Somewhat disagree" = 4, "Neither agree nor disagree" = 3, "Somewhat agree" = 2, "Strongly agree" = 1), 
+         Q6 = recode(Q6, "Strongly disagree" = 5, "Somewhat disagree" = 4, "Neither agree nor disagree" = 3, "Somewhat agree" = 2, "Strongly agree" = 1), 
+         Q14 = recode(Q14, "Strongly disagree" = 5, "Somewhat disagree" = 3, "Neither agree nor disagree" = 3, "Somewhat agree" = 2, "Strongly agree" = 1), 
+         Q16 = recode(Q16, "Strongly disagree" = 5, "Somewhat disagree" = 3, "Neither agree nor disagree" = 3, "Somewhat agree" = 2, "Strongly agree" = 1), 
+         Q17 = recode(Q17, "Strongly disagree" = 5, "Somewhat disagree" = 4, "Neither agree nor disagree" = 3, "Somewhat agree" = 2, "Strongly agree" = 1),
+         Q1 = recode(Q1, "Strongly disagree" = 1, "Somewhat disagree" = 2, "Neither agree nor disagree" = 3, "Somewhat agree" = 4, "Strongly agree" = 5), 
+         Q3 = recode(Q3, "Strongly disagree" = 1, "Somewhat disagree" = 2, "Neither agree nor disagree" = 3, "Somewhat agree" = 4, "Strongly agree" = 5), 
+         Q5 = recode(Q5, "Strongly disagree" = 1, "Somewhat disagree" = 2, "Neither agree nor disagree" = 3, "Somewhat agree" = 4, "Strongly agree" = 5), 
+         Q13 = recode(Q13, "Strongly disagree" = 1, "Somewhat disagree" = 2, "Neither agree nor disagree" = 3, "Somewhat agree" = 4, "Strongly agree" = 5), 
+         Q15 = recode(Q15, "Strongly disagree" = 1, "Somewhat disagree" = 1, "Neither agree nor disagree" = 3, "Somewhat agree" = 4, "Strongly agree" = 5), 
+         Q18 = recode(Q18, "Strongly disagree" = 1, "Somewhat disagree" = 1, "Neither agree nor disagree" = 3, "Somewhat agree" = 4, "Strongly agree" = 5))
 ```
 
 ```{r}
 data_c <- data_c |>
-  mutate(Q26 = as.factor(Q26))
-levels(data_c$Q26)
+  mutate(Q_Composite = ((Q1 + Q2 + Q3 + Q4 + Q5 + Q6 + Q13 + Q14 + Q15 + Q16 + Q17 + Q18)))
+
+print(min(data_c$Q_Composite, na.rm = TRUE))
+
+print(max(data_c$Q_Composite, na.rm = TRUE))
 ```
 
 ```{r}
-m_1 <- lm(Q26_num ~ Q5_group * Q13_group * Q17_group, d = data_c)
-tidy(m_1)
+data_c |> 
+  group_by(Q26) |> 
+  summarize(mean_comp = mean(Q_Composite, na.rm = TRUE)) |>
+  ungroup()
 ```
 
+```{r}
+data_c <- data_c |>
+  mutate(Q26_num = case_match(Q26, "Never" ~ 0, "0-1 days a month" ~ 1, "2-4 days a month" ~ 2, "2-4 days a month" ~ 3, "4-8 days a month" ~ 3, "8 or more days a month" ~ 4))
+
+m_1 <- lm(Q_Composite ~ Q26_num, data = data_c)
+summary(m_1)
+```
 
 ## Analytical Or Research Question
 
-Does a person's opinion of their comfort when interacting with new people affect how many days a month they use public transportation? 
+Does a person's number of days they used public transportation per month on average over the last 3 months predict their composite communication apprehension score from responses to questions about their confidence in conversations?
 
 ## Answer, Response, & Summary of Results
 
-While an individual response to questions asking how comfortable a person feels in conversation with a new acquaintance did not predict how often they used public transportation, the effect of a response did become significant dependent on the response to another question. The interaction effect between responses to Question 5 and Question 13 proved significant, such that a person's greater confidence in interacting with a new person in Question 13 decreases the effect of greater confidence in Question 5's response on how often that person uses public transportation.
+Yes. The number of days that a person uses public transportation in a week is a strong predictor of their composite communication apprehension score from questions related to their confidence in conversation.
 
 ```{r}
 data_c <- data_c |> 
-  mutate(Q13_str = as.factor(if_else(Q13_group == -0.5, "Confident13", "Not Confident13")),
-         Q17_str = as.factor(if_else(Q17_group == -0.5, "Not Confident17", "Confident17")),
-         Q5_str = as.factor(if_else(Q13_group == -0.5, "Confident5", "Not Confident5")))
+  mutate(days_str = as.factor(Q26))
 
-m_graph <- lm(Q26_num ~ Q13_str * Q17_str * Q5_str, data = data_c)
+m_graph <- lm(Q_Composite ~ days_str, data = data_c)
 
-x <- expand.grid(Q13_str = c("Confident13", "Not Confident13"), 
-                 Q17_str = c("Confident17", "Not Confident17"),
-                 Q5_str = c("Confident5", "Not Confident5"))
-
+x <- expand.grid(days_str = c("Never", "0-1 days a month", "2-4 days a month", "2-4 days a month", "4-8 days a month", "8 or more days a month"))
 
 preds <- predict(m_graph, x, se.fit = TRUE) |> 
   as_tibble() |> 
@@ -161,30 +143,22 @@ preds <- predict(m_graph, x, se.fit = TRUE) |>
          lower = fit - se.fit) |> 
   bind_cols(x)
 
-ggplot(preds, aes(x = Q13_str, y = fit, fill = Q17_str)) +
-  geom_bar(stat = "identity", position = "dodge", width = 0.7, alpha = 0.7) +
-  geom_errorbar(aes(ymin = lower, ymax = upper),
-                position = position_dodge(0.7), width = 0.25) +
-  facet_wrap(vars(Q5_str))+
-  geom_point(data = data_c, aes(x = Q13_str, y = Q26_num, fill = Q17_str),
-             position = position_jitterdodge(jitter.width = 0.1, dodge.width = 0.7),
-             alpha = 0.3, size = 1) +
-  theme_minimal() +
-  labs(title = "Alcohol, Sleep, and Experience",
-       x = "Condition",
-       y = "Score",
-       fill = "Experience") +
-  theme(strip.text = element_text(face = "bold")) +
-  scale_fill_manual(values = c("novice" = "orange", "experienced" = "magenta"))
+ggplot(preds, aes(x = days_str, y = fit, fill = days_str)) +
+  geom_bar(stat = "identity",  
+           position = position_dodge(width = .5), 
+           width = .5) + 
+  geom_errorbar(aes(ymin = lower, ymax = upper), 
+                position = position_dodge(width = .5), 
+                width = .25) +
+  labs(x = "Days in last 3 months", 
+       y = "Total Commucation Apprehension Score",
+       fill = "Days in last 3 months")
 ```
 
-@fig-mpg-trend presents two overlayed visualizations examining fuel efficiency: a line chart showing average miles per gallon (MPG) by model year, and a violin plot displaying the full MPG distribution for each year. The data spans 1970 through 1982. The line plots average MPG on the y-axis (ranging from approximately 15 to 35) against model year on the x-axis. The violins plot vehicle MPG values are distributed within each year. Reading the line chart, we can see that average fuel efficiency rose from roughly 17 MPG in 1970 to approximately 31 MPG by 1982. Efficiency nearly doubling. The early years (1970–1973) show narrow violin shapes clustered between 10 and 25 MPG, whereas later years (1978–1982) display much wider distributions extending well above 40 MPG. Not only did average efficiency improve, but manufacturers also began offering a broader range of fuel-efficient options The sharp rise around 1975–1976 may reflect automaker responses to the 1973 oil crisis and subsequent federal fuel economy standards. Together, these visuals demonstrate that vehicles did become more efficient over time.
+This graph shows the gradual progression in total communication apprehension across responses to the number of days a person has used public transportation per month over the last 3 months. In general, the trend as the number of days public transportation was used per month over the last 3 months is a decrease in total communication apprehension score, with the exception of an excess of 8 or more days per month over the last 3 months. 
 
 ## Remaining Questions + Uncertainties
 
-The method of dichotomizing continuous variables in order to produce an ANOVA analysis using questions that used a response scale resulted in a large loss of information that liekly resulted in certain effects and interactions bein interpreted as insignificant when they likely were. Can this model be improved so that more information is captured in a response? Once that is done, we could also calculate other interactions. How does this trend change when age, gender, or employment status is taken into account? 
+It seems clear that the number of days a participant has used public transportation per month over the last 3 months reliably predicts their composite communication apprehension score. However, it is not yet clear how other variables can influence these predictions. How can variables like age, gender, and employment status affect these results?
 
 ## References {.unnumbered}
-
-::: {#refs}
-:::
