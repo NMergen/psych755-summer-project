@@ -1,5 +1,5 @@
 ---
-title: Research Memo
+title: Research Memo Template
 author: "Nick Mergendahl"
 date: "`r lubridate::today()`"
 status: draft
@@ -54,7 +54,7 @@ format:
         \vspace{0.5em}
   docx:
     toc: false
-bibliography: references.bib
+bibliography: memo_template_refs.bib
 execute:
   warning: false
   message: false
@@ -67,56 +67,122 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from IPython.display import Markdown, display
 
-#mpg = sns.load_dataset("mpg")
+data_a = pd.read_csv('./data/PRCAProlificExport_FileA.csv')
+
+data_b = pd.read_csv('./data/PRCAProlificExport_FileB.csv')
+
+data_c = pd.read_csv('./data/PRCAQualtricsExport_FileC.csv')
+
 ```
+
+```{r}
+options(conflicts.policy = "depends.ok") 
+
+library(tidyverse)
+library(psych, exclude = c("%+%", "alpha"))
+library(skimr)
+library(Matrix, exclude = c("expand", "pack", "unpack"))
+library(lme4)
+library(kableExtra, exclude = "group_rows")
+library(car, exclude = c("recode", "some", "logit"))
+# new package!
+library(ggcorrplot)
+
+library(tidyverse)
+library(Matrix, exclude = c("expand", "unpack", "pack"))
+library(lme4)
+library(broom)
+library(skimr)
+library(effects)
+library(car, exclude = c("recode", "some"))
+
+theme_set(theme_classic())
+
+path_data <- "data"
+
+data_c <- read_csv(here::here(path_data, "PRCAQualtricsExport_FileC.csv"), show_col_types = FALSE)
+```
+
+```{r}
+skim(data_c)
+```
+
+```{r}
+data_c <- data_c[complete.cases(data_c[, c("Q5", "Q13", "Q17", "Q26")]), ]
+
+```
+
+```{r}
+data_c <- data_c |>
+  mutate(Q5_group = recode(Q5, "Strongly disagree" = .5, "Somewhat disagree" = .5, "Neither agree nor disagree" = 0, "Somewhat agree" = -.5, "Strongly agree" = -.5), Q13_group = recode(Q13, "Strongly disagree" = .5, "Somewhat disagree" = .5, "Neither agree nor disagree" = 0, "Somewhat agree" = -.5, "Strongly agree" = -.5), Q17_group = recode(Q17, "Strongly disagree" = .5, "Somewhat disagree" = .5, "Neither agree nor disagree" = 0, "Somewhat agree" = -.5, "Strongly agree" = -.5), Q26_num = recode(Q26, "Never" = 0, "0-1 days a month" = 1, "2-4 days a month" = 2, "4-8 days a month" = 3, "8 or more days a month" = 4))
+```
+
+
+```{r}
+skim(data_c)
+```
+
+```{r}
+data_c <- data_c |>
+  mutate(Q26 = as.factor(Q26))
+levels(data_c$Q26)
+```
+
+```{r}
+m_1 <- lm(Q26_num ~ Q5_group * Q13_group * Q17_group, d = data_c)
+tidy(m_1)
+```
+
 
 ## Analytical Or Research Question
 
-Does positive advice regarding group speaking correspond to public transportation use?
+Does a person's opinion of their comfort when interacting with new people affect how many days a month they use public transportation? 
 
 ## Answer, Response, & Summary of Results
 
-Yes it does appear that vehicles have become more efficient over time. Using the `mpg` dataset from Seaborn [@Waskom2021seaborn] we can see that the average fuel efficiency of vehicles has increased over the years.
+While an individual response to questions asking how comfortable a person feels in conversation with a new acquaintance did not predict how often they used public transportation, the effect of a response did become significant dependent on the response to another question. The interaction effect between responses to Question 5 and Question 13 proved significant, such that a person's greater confidence in interacting with a new person in Question 13 decreases the effect of greater confidence in Question 5's response on how often that person uses public transportation.
 
-```{python}
-#| label: fig-xx-xxxx
-#| fig-cap: "Fuel Efficiency Trends Over Time"
+```{r}
+data_c <- data_c |> 
+  mutate(Q13_str = as.factor(if_else(Q13_group == -0.5, "Confident13", "Not Confident13")),
+         Q17_str = as.factor(if_else(Q17_group == -0.5, "Not Confident17", "Confident17")),
+         Q5_str = as.factor(if_else(Q13_group == -0.5, "Confident5", "Not Confident5")))
 
-avg_mpg_by_year = mpg.groupby('model_year')['mpg'].mean()
+m_graph <- lm(Q26_num ~ Q13_str * Q17_str * Q5_str, data = data_c)
 
-# Instantiate the figure
-fig, ax1 = plt.subplots(1, 1, figsize=(5, 3))
+x <- expand.grid(Q13_str = c("Confident13", "Not Confident13"), 
+                 Q17_str = c("Confident17", "Not Confident17"),
+                 Q5_str = c("Confident5", "Not Confident5"))
 
-# Get sorted unique years for consistent positioning
-years = sorted(mpg['model_year'].unique())
-# Underneath: violin plots of MPG distribution per year
-sns.violinplot(data=mpg, x='model_year', y='mpg', order=years, ax=ax1)
-# Overlay: line chart of average MPG by year (using categorical positions)
-ax1.plot(range(len(years)), [avg_mpg_by_year[y] for y in years],
-         color='black', linewidth=2, marker='o', markersize=4, zorder=10)
 
-ax1.set_title('MPG Distribution by Model Year')
-ax1.set_xlabel('Model Year')
-ax1.set_ylabel('MPG')
+preds <- predict(m_graph, x, se.fit = TRUE) |> 
+  as_tibble() |> 
+  mutate(upper = fit + se.fit,
+         lower = fit - se.fit) |> 
+  bind_cols(x)
 
-plt.tight_layout()
-plt.show()
-```
-
-```{python}
-#| echo: false
-
-# Give efficiency at index 0 (earliest yr) and index -1 (latest year)
-display(Markdown(
-  f'The average fuel efficiency of vehicles has increased from {avg_mpg_by_year.iloc[0]:.2f} MPG in {avg_mpg_by_year.index[0]} to {avg_mpg_by_year.iloc[-1]:.2f} MPG in {avg_mpg_by_year.index[-1]}.'
-))
+ggplot(preds, aes(x = Q13_str, y = fit, fill = Q17_str)) +
+  geom_bar(stat = "identity", position = "dodge", width = 0.7, alpha = 0.7) +
+  geom_errorbar(aes(ymin = lower, ymax = upper),
+                position = position_dodge(0.7), width = 0.25) +
+  facet_wrap(vars(Q5_str))+
+  geom_point(data = data_c, aes(x = Q13_str, y = Q26_num, fill = Q17_str),
+             position = position_jitterdodge(jitter.width = 0.1, dodge.width = 0.7),
+             alpha = 0.3, size = 1) +
+  theme_minimal() +
+  labs(title = "Alcohol, Sleep, and Experience",
+       x = "Condition",
+       y = "Score",
+       fill = "Experience") +
+  theme(strip.text = element_text(face = "bold")) +
+  scale_fill_manual(values = c("novice" = "orange", "experienced" = "magenta"))
 ```
 
 @fig-mpg-trend presents two overlayed visualizations examining fuel efficiency: a line chart showing average miles per gallon (MPG) by model year, and a violin plot displaying the full MPG distribution for each year. The data spans 1970 through 1982. The line plots average MPG on the y-axis (ranging from approximately 15 to 35) against model year on the x-axis. The violins plot vehicle MPG values are distributed within each year. Reading the line chart, we can see that average fuel efficiency rose from roughly 17 MPG in 1970 to approximately 31 MPG by 1982. Efficiency nearly doubling. The early years (1970–1973) show narrow violin shapes clustered between 10 and 25 MPG, whereas later years (1978–1982) display much wider distributions extending well above 40 MPG. Not only did average efficiency improve, but manufacturers also began offering a broader range of fuel-efficient options The sharp rise around 1975–1976 may reflect automaker responses to the 1973 oil crisis and subsequent federal fuel economy standards. Together, these visuals demonstrate that vehicles did become more efficient over time.
 
 ## Remaining Questions + Uncertainties
 
-Does the trend hold when controlling for vehicle weight, engine displacement, or number of cylinders? The current analysis examines only the marginal relationship between model year and MPG. Additionally, the dataset ends at 1982—it is unclear whether efficiency gains continued at the same rate in subsequent decades or plateaued after initial regulatory pressure subsided.
+The method of dichotomizing continuous variables in order to produce an ANOVA analysis using questions that used a response scale resulted in a large loss of information that liekly resulted in certain effects and interactions bein interpreted as insignificant when they likely were. Can this model be improved so that more information is captured in a response? Once that is done, we could also calculate other interactions. How does this trend change when age, gender, or employment status is taken into account? 
 
 ## References {.unnumbered}
 
