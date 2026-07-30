@@ -81,38 +81,8 @@ Yes, it does appear that individuals who answered 'strongly agree' to the statem
 ![Violin Plot](comtran.png)
 
 ```{python}
-#| label: fig-xx-xxxx
-#| fig-cap: "Fuel Efficiency Trends Over Time"
-
-avg_mpg_by_year = mpg.groupby('model_year')['mpg'].mean()
-
-# Instantiate the figure
-fig, ax1 = plt.subplots(1, 1, figsize=(5, 3))
-
-# Get sorted unique years for consistent positioning
-years = sorted(mpg['model_year'].unique())
-# Underneath: violin plots of MPG distribution per year
-sns.violinplot(data=mpg, x='model_year', y='mpg', order=years, ax=ax1)
-# Overlay: line chart of average MPG by year (using categorical positions)
-ax1.plot(range(len(years)), [avg_mpg_by_year[y] for y in years],
-         color='black', linewidth=2, marker='o', markersize=4, zorder=10)
-
-ax1.set_title('MPG Distribution by Model Year')
-ax1.set_xlabel('Model Year')
-ax1.set_ylabel('MPG')
-
-plt.tight_layout()
-plt.show()
-```
-
-```{python}
-#| echo: false
-
-# Give efficiency at index 0 (earliest yr) and index -1 (latest year)
-display(Markdown(
-  f'The average fuel efficiency of vehicles has increased from {avg_mpg_by_year.iloc[0]:.2f} MPG in {avg_mpg_by_year.index[0]} to {avg_mpg_by_year.iloc[-1]:.2f} MPG in {avg_mpg_by_year.index[-1]}.'
-))
-```
+#| label: comtran.pmg
+#| fig-cap: "Public Transport Use and Comfort in Group Discussions"
 
 @comtran.pmg presents a violin plot visualization displaying public transportation use and comfort in group conversations: On the y-axis (ranging from never to 8 or more days a month) is a scale of how often partcipants have used pulbic transportation in the last three months. The x-axis displays a likert scale (ranging from strongly agree to strongly disagree) measuring how much the partcipants agreed with the statement "Generally, I am comfortable while participating in group discussions". We are shown narrowing violin shapes clustered around 8 or more days a month for individuals that strongly and somewhat disagreed with the statement. The violin plot also displays much wider distributions extending around never. Together, these visuals demonstrate that individuals who don't feel comfortable in group discussions use public transportation less in a given three month period.
 
