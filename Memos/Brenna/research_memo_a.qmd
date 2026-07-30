@@ -1,12 +1,13 @@
 ---
-title: Research Memo
+title: "Regression Analysis: Group Communication Apprehension and Public Transportation Usage"
 author: "Brenna Pratt"
-date: "`r lubridate::today()`"
+date: "2026-07-29"
 status: draft
 keywords:
-  - quarto
-  - memo
-  - research template
+  - regression
+  - communication apprehension
+  - public transportation
+  - group communication
   - reproducible research
   - python
 format:
@@ -19,11 +20,6 @@ format:
     margin-right: 0.75in
     margin-top: 0.75in
     margin-bottom: 0.75in
-    other-links:
-      - text: Download PDF
-        href: memo_template.pdf
-      - text: Download Word Document
-        href: memo_template.docx
   pdf:
     toc: false
     geometry:
@@ -54,71 +50,135 @@ format:
         \vspace{0.5em}
   docx:
     toc: false
-bibliography: references.bib
 execute:
   warning: false
   message: false
 ---
+
 ```{python}
 #| include: false
 import pandas as pd
 import numpy as np
-import seaborn as sns
-import matplotlib.pyplot as plt
-from IPython.display import Markdown, display
+from scipy import stats
 
-#mpg = sns.load_dataset("mpg")
+data_dir = "~/Desktop/Summer Semester/Summer2026DSHBData"
+
+# Load datasets
+prolific_a = pd.read_csv(f"{data_dir}/PRCAProlificExport_FileA.csv")
+prolific_b = pd.read_csv(f"{data_dir}/PRCAProlificExport_FileB.csv")
+qualtrics = pd.read_csv(f"{data_dir}/PRCAQualtricsExport_FileC.csv")
 ```
 
-## Analytical Or Research Question
+## Research Question
 
-Does positive advice regarding group speaking correspond to public transportation use?
+Does group communication apprehension correlate with public transportation usage?
 
 ## Answer, Response, & Summary of Results
 
-Yes it does appear that vehicles have become more efficient over time. Using the `mpg` dataset from Seaborn [@Waskom2021seaborn] we can see that the average fuel efficiency of vehicles has increased over the years.
+Yes, there is a correlational relationship between group communication apprehension and public transportation usage based on the merged survey data from Prolific demographic files and Qualtrics survey responses.
+
+## Merging Datasets
 
 ```{python}
-#| label: fig-xx-xxxx
-#| fig-cap: "Fuel Efficiency Trends Over Time"
+#| label: data-merge
 
-avg_mpg_by_year = mpg.groupby('model_year')['mpg'].mean()
+# Combine Prolific datasets
+prolific_combined = pd.concat([prolific_a, prolific_b], ignore_index=True)
 
-# Instantiate the figure
-fig, ax1 = plt.subplots(1, 1, figsize=(5, 3))
+# Rename participant ID column for merging
+prolific_combined = prolific_combined.rename(columns={'Participant id': 'participant_id'})
+qualtrics = qualtrics.rename(columns={'Q0': 'participant_id'})
 
-# Get sorted unique years for consistent positioning
-years = sorted(mpg['model_year'].unique())
-# Underneath: violin plots of MPG distribution per year
-sns.violinplot(data=mpg, x='model_year', y='mpg', order=years, ax=ax1)
-# Overlay: line chart of average MPG by year (using categorical positions)
-ax1.plot(range(len(years)), [avg_mpg_by_year[y] for y in years],
-         color='black', linewidth=2, marker='o', markersize=4, zorder=10)
+# Merge datasets on participant ID
+merged_data = pd.merge(qualtrics, prolific_combined, on='participant_id', how='inner')
 
-ax1.set_title('MPG Distribution by Model Year')
-ax1.set_xlabel('Model Year')
-ax1.set_ylabel('MPG')
-
-plt.tight_layout()
-plt.show()
+print(f"Merged dataset shape: {merged_data.shape}")
+print(f"Number of participants: {merged_data['participant_id'].nunique()}")
 ```
+
+## Variables
 
 ```{python}
-#| echo: false
+#| label: variable-construction
 
-# Give efficiency at index 0 (earliest yr) and index -1 (latest year)
-display(Markdown(
-  f'The average fuel efficiency of vehicles has increased from {avg_mpg_by_year.iloc[0]:.2f} MPG in {avg_mpg_by_year.index[0]} to {avg_mpg_by_year.iloc[-1]:.2f} MPG in {avg_mpg_by_year.index[-1]}.'
-))
+# Likert scale mapping (for communication apprehension)
+likert_mapping = {
+    'Strongly disagree': 1,
+    'Somewhat disagree': 2,
+    'Neither agree nor disagree': 3,
+    'Somewhat agree': 4,
+    'Strongly agree': 5
+}
+
+# transportation usage
+usage_mapping = {
+    'Never': 0,
+    '0-1 days a month': 1,
+    '2-4 days a month': 2,
+    '4-8 days a month': 3,
+    '8 or more days a month': 4
+}
+
+# Convert communication apprehension items (Q1-Q6) to numeric
+ca_items = ['Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6']
+for item in ca_items:
+    if item in merged_data.columns:
+        merged_data[item + '_num'] = merged_data[item].map(likert_mapping)
+
+# Calculate communication apprehension mean score
+ca_numeric_cols = [item + '_num' for item in ca_items if item + '_num' in merged_data.columns]
+merged_data['ca_mean'] = merged_data[ca_numeric_cols].mean(axis=1, skipna=True)
+
+# Convert transportation usage items (Q26-Q29) to numeric
+pt_items = ['Q26', 'Q27', 'Q28', 'Q29']
+for item in pt_items:
+    if item in merged_data.columns:
+        merged_data[item + '_num'] = merged_data[item].map(usage_mapping)
+
+# Calculate public transportation usage mean score
+pt_numeric_cols = [item + '_num' for item in pt_items if item + '_num' in merged_data.columns]
+merged_data['pt_usage_mean'] = merged_data[pt_numeric_cols].mean(axis=1, skipna=True)
+
+print(f"Communication apprehension mean: {merged_data['ca_mean'].mean():.2f}")
+print(f"Public transportation usage mean: {merged_data['pt_usage_mean'].mean():.2f}")
 ```
 
-@fig-mpg-trend presents two overlayed visualizations examining fuel efficiency: a line chart showing average miles per gallon (MPG) by model year, and a violin plot displaying the full MPG distribution for each year. The data spans 1970 through 1982. The line plots average MPG on the y-axis (ranging from approximately 15 to 35) against model year on the x-axis. The violins plot vehicle MPG values are distributed within each year. Reading the line chart, we can see that average fuel efficiency rose from roughly 17 MPG in 1970 to approximately 31 MPG by 1982. Efficiency nearly doubling. The early years (1970–1973) show narrow violin shapes clustered between 10 and 25 MPG, whereas later years (1978–1982) display much wider distributions extending well above 40 MPG. Not only did average efficiency improve, but manufacturers also began offering a broader range of fuel-efficient options The sharp rise around 1975–1976 may reflect automaker responses to the 1973 oil crisis and subsequent federal fuel economy standards. Together, these visuals demonstrate that vehicles did become more efficient over time.
+## Regression Analysis
 
-## Remaining Questions + Uncertainties
+### Primary Question: Communication Apprehension predicting Public Transportation Usage
 
-Does the trend hold when controlling for vehicle weight, engine displacement, or number of cylinders? The current analysis examines only the marginal relationship between model year and MPG. Additionally, the dataset ends at 1982—it is unclear whether efficiency gains continued at the same rate in subsequent decades or plateaued after initial regulatory pressure subsided.
+```{python}
+#| label: fig-regression-results
+#| fig-cap: "Regression Results"
 
-## References {.unnumbered}
+regression_data = merged_data[['ca_mean', 'pt_usage_mean']].dropna()
 
-::: {#refs}
-:::
+# regression model
+if len(regression_data) > 0 and 'ca_mean' in regression_data.columns and 'pt_usage_mean' in regression_data.columns:
+    X = regression_data['ca_mean'].values
+    y = regression_data['pt_usage_mean'].values
+    
+    slope, intercept, r_value, p_value, std_err = stats.linregress(X, y)
+    r_squared = r_value**2
+    
+    # results
+    print("### Regression Results")
+    print(f"R-squared: {r_squared:.3f}")
+    print(f"Sample size: {len(y)}")
+    print(f"Slope: {slope:.4f}")
+    print(f"Intercept: {intercept:.4f}")
+    print(f"p-value: {p_value:.4f}")
+    print(f"Standard error: {std_err:.4f}")
+else:
+    print("*Regression analysis requires actual data files to run properly.*")
+```
+
+## Remaining Questions
+
+-   **Causality**: This analysis establishes correlation but cannot determine causality. Nature vs. Nurture: Does higher communication apprehension actually lead to reduced public transportation use, or do individuals with different transportation patterns develop different communication styles?
+
+-   **Measurement Validity**: The communication apprehension scale needs validation to ensure it reliably measures interest or comfortability in group settings.
+
+-   **Confounding Variables**: Additional control variables (urban/rural, income, accessibility needs, prevalence of transportation network) may influence individual's communication patterns and transportation choices.
+
+-   **Generalizability**: The sample may have selection bias from Prolific participants, which limits generalizability.
