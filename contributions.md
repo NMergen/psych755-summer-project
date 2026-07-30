@@ -1,9 +1,9 @@
 # Contributions
 
-**Group [number/name]:** [Makeup A Fun Professional Group Name]
-**Group Members:** [List all members]
-**Project:** [title of your manuscript]
-**Repository:** [link to this repo]
+**Group:** [psych755-summer]
+**Group Members:** [Brenna Pratt, Sasha Sweat, Nick Mergendahl]
+**Project:** [tbd]
+**Repository:** [https://github.com/bepratt/psych755-summer-project.git]
 
 ---
 
@@ -57,7 +57,7 @@ The last bullet in each section asks which portion of the data science process y
 
 ---
 
-## Student 1: [Full Name] (`github-username`)
+## Student 1: [Brenna Pratt] (`bepratt`)
 
 - **The component I "owned" and that I summarize here is best described as** *[One or two sentences. Name the thing. "The ingestion layer," "the model comparison and cross-validation," "the figure pipeline." Not "I helped with the analysis."]*
 - **You can find this contribution in a file called** `filename.qmd` **at lines** XX–YY. *[Add a permalink. List more than one file if the component genuinely spans them.]*
@@ -67,7 +67,7 @@ The last bullet in each section asks which portion of the data science process y
 
 ---
 
-## Student 2: [Full Name] (`github-username`)
+## Student 2: [Sasha Sweat] (`sweat2-create`)
 
 - **The component I "owned" and that I summarize here is best described as**
 - **You can find this contribution in a file called** `filename.qmd` **at lines** XX–YY.
@@ -77,29 +77,7 @@ The last bullet in each section asks which portion of the data science process y
 
 ---
 
-## Student 3: [Full Name] (`github-username`)
-
-- **The component I "owned" and that I summarize here is best described as**
-- **You can find this contribution in a file called** `filename.qmd` **at lines** XX–YY.
-- **Owning this component means**
-- **The commits or PRs that are most relevant are**
-- **The portion of the data science process that this effort contributes to is**
-
----
-
-## Student 4: [Full Name] (`github-username`)
-
-- **The component I "owned" and that I summarize here is best described as**
-- **You can find this contribution in a file called** `filename.qmd` **at lines** XX–YY.
-- **Owning this component means**
-- **The commits or PRs that are most relevant are**
-- **The portion of the data science process that this effort contributes to is**
-
----
-
-## Student 5: [Full Name] (`github-username`)
-
-*[Delete this section if your group has four members.]*
+## Student 3: [Nick Mergendahl] (`NMergen`)
 
 - **The component I "owned" and that I summarize here is best described as**
 - **You can find this contribution in a file called** `filename.qmd` **at lines** XX–YY.
@@ -113,8 +91,6 @@ The last bullet in each section asks which portion of the data science process y
 
 By adding your name below, each member affirms that the account of their own contribution is accurate, and that they have read the other four sections and believe them to be accurate as well.
 
-- [ ] [Full Name] (`github-username`) — [date]
-- [ ] [Full Name] (`github-username`) — [date]
-- [ ] [Full Name] (`github-username`) — [date]
-- [ ] [Full Name] (`github-username`) — [date]
-- [ ] [Full Name] (`github-username`) — [date]
+- [ ] [Brenna Pratt] (`bepratt`) — [date]
+- [ ] [Sasha Sweat] (`sweat2-create`) — [date]
+- [ ] [Nick Mergendahl] (`NMergen`) — [date]
