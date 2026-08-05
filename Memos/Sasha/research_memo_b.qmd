@@ -66,8 +66,6 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 from IPython.display import Markdown, display
-
-#mpg = sns.load_dataset("mpg")
 ```
 
 ## Analytical Or Research Question
@@ -78,11 +76,13 @@ Are individuals who feel comfortable in group discussions more likely to use pub
 
 Yes, it does appear that individuals who answered 'strongly agree' to the statement "Generally, I am comfortable in group discussions" reported using transportation 8 or more days in a month at a higher rate than those who answered 'strongly disagree'. Individuals who answered strongly disagree also reported never using public in the last three months at a much higher rate than those who answered 'strongly agree'.
 
-![Violin Plot](comtran.png)
+
 
 ```{python}
 #| label: comtran.pmg
 #| fig-cap: "Public Transport Use and Comfort in Group Discussions"
+![Violin Plot](comtran.png)
+```
 
 @comtran.pmg presents a violin plot visualization displaying public transportation use and comfort in group conversations: On the y-axis (ranging from never to 8 or more days a month) is a scale of how often partcipants have used pulbic transportation in the last three months. The x-axis displays a likert scale (ranging from strongly agree to strongly disagree) measuring how much the partcipants agreed with the statement "Generally, I am comfortable while participating in group discussions". We are shown narrowing violin shapes clustered around 8 or more days a month for individuals that strongly and somewhat disagreed with the statement. The violin plot also displays much wider distributions extending around never. Together, these visuals demonstrate that individuals who don't feel comfortable in group discussions use public transportation less in a given three month period.
 
