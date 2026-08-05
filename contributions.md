@@ -79,11 +79,11 @@ The last bullet in each section asks which portion of the data science process y
 
 ## Student 3: [Nick Mergendahl] (`NMergen`)
 
-- **The component I "owned" and that I summarize here is best described as**
-- **You can find this contribution in a file called** `filename.qmd` **at lines** XX–YY.
-- **Owning this component means**
-- **The commits or PRs that are most relevant are**
-- **The portion of the data science process that this effort contributes to is**
+- **The component I "owned" and that I summarize here is best described as** The research memo documenting the effect of the number of days a person used public transportation per month on average on their composite communication apprehension scores.
+- **You can find this contribution in a file called** `research_memo_c.qmd` **at lines** https://github.com/bepratt/psych755-summer-project/blob/402d5d5c20b5c6af130e9000dadc195af2ed815a/Memos/Nick/research_memo_c.qmd .
+- **Owning this component means** writing the code for the document, interpreting the results of the code, and designing the graphs shown in the associated documents. 
+- **The commits or PRs that are most relevant are** https://github.com/bepratt/psych755-summer-project/commit/90ed356f033b2c69929fbc01ca4e9b9883dace60, https://github.com/bepratt/psych755-summer-project/commit/00abb7496c45e72a9017e8e1059e5510d29679db, and https://github.com/bepratt/psych755-summer-project/commit/13ae5bd5085df4c0aad82f64ec126f454b47313a. 
+- **The portion of the data science process that this effort contributes to is** Select + Apply -- Applying an ANOVA analysis of composite communication apprehension scores to individuals grouped by responses to how many days in the last month on average have they used public transportation.
 
 ---
 
@@ -93,4 +93,4 @@ By adding your name below, each member affirms that the account of their own con
 
 - [ ] [Brenna Pratt] (`bepratt`) — [date]
 - [ ] [Sasha Sweat] (`sweat2-create`) — [date]
-- [ ] [Nick Mergendahl] (`NMergen`) — [date]
+- [ ] [Nick Mergendahl] (`NMergen`) — [8-5-2026]
