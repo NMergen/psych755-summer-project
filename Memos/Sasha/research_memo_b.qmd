@@ -66,8 +66,6 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 from IPython.display import Markdown, display
-
-#mpg = sns.load_dataset("mpg")
 ```
 
 ## Analytical Or Research Question
