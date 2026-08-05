@@ -80,7 +80,7 @@ Yes, it does appear that individuals who answered 'strongly agree' to the statem
 
 ```{python}
 #| label: comtran.pmg
-#| fig-cap: "Public Transport Use and Comfort in Group Discussions"
+#| fig-cap: "Violin Plot Comparing Public Transport Use (Q26) and Comfort in Group Discussions (Q2)"
 ![Violin Plot](comtran.png)
 ```
 
