@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Nick Mergendahl">
-<meta name="dcterms.date" content="2026-07-30">
+<meta name="dcterms.date" content="2026-08-05">
 <meta name="keywords" content="quarto, memo, research template, reproducible research, python">
 
 <title>Research Memo Template</title>
@@ -83,7 +83,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="research_memo_c.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="research_memo_c.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div><div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="memo_template.pdf"><i class="bi bi-link-45deg"></i>Download PDF</a></li><li><a href="memo_template.docx"><i class="bi bi-link-45deg"></i>Download Word Document</a></li></ul></div></div>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="research_memo_c.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="research_memo_c.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div><div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="research_memo_c.pdf"><i class="bi bi-link-45deg"></i>Download PDF</a></li><li><a href="research_memo_c.docx"><i class="bi bi-link-45deg"></i>Download Word Document</a></li></ul></div></div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -105,7 +105,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">July 30, 2026</p>
+      <p class="date">August 5, 2026</p>
     </div>
   </div>
   
@@ -123,6 +123,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="analytical-or-research-question" class="level2">
+<h2 class="anchored" data-anchor-id="analytical-or-research-question">Analytical Or Research Question</h2>
+<p>Does a person’s number of days they used public transportation per month on average over the last 3 months predict their composite communication apprehension score from responses to questions about their confidence in conversations?</p>
+</section>
+<section id="answer-response-summary-of-results" class="level2">
+<h2 class="anchored" data-anchor-id="answer-response-summary-of-results">Answer, Response, &amp; Summary of Results</h2>
+<p>Yes. The number of days that a person uses public transportation in a week is a strong predictor of their composite communication apprehension score from questions related to their confidence in conversation.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -189,19 +196,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>data_c <span class="sc">|&gt;</span> </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Q26) <span class="sc">|&gt;</span> </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_comp =</span> <span class="fu">mean</span>(Q_Composite, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_comp =</span> <span class="fu">mean</span>(Q_Composite, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">sd_comp =</span> <span class="fu">sd</span>(Q_Composite, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 2
-  Q26                    mean_comp
-  &lt;chr&gt;                      &lt;dbl&gt;
-1 0-1 days a month            29.0
-2 2-4 days a month            27.6
-3 4-8 days a month            26.0
-4 8 or more days a month      27.5
-5 Never                       32.2
-6 &lt;NA&gt;                       NaN  </code></pre>
+<pre><code># A tibble: 6 × 4
+  Q26                    mean_comp sd_comp     n
+  &lt;chr&gt;                      &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;
+1 0-1 days a month            29.0   10.4     40
+2 2-4 days a month            27.6   10.7     57
+3 4-8 days a month            26.0    9.56    52
+4 8 or more days a month      27.5   11.4     67
+5 Never                       32.2   13.0     55
+6 &lt;NA&gt;                       NaN     NA        2</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -235,13 +242,6 @@ Multiple R-squared:  0.02442,   Adjusted R-squared:  0.02064
 F-statistic: 6.458 on 1 and 258 DF,  p-value: 0.01163</code></pre>
 </div>
 </div>
-<section id="analytical-or-research-question" class="level2">
-<h2 class="anchored" data-anchor-id="analytical-or-research-question">Analytical Or Research Question</h2>
-<p>Does a person’s number of days they used public transportation per month on average over the last 3 months predict their composite communication apprehension score from responses to questions about their confidence in conversations?</p>
-</section>
-<section id="answer-response-summary-of-results" class="level2">
-<h2 class="anchored" data-anchor-id="answer-response-summary-of-results">Answer, Response, &amp; Summary of Results</h2>
-<p>Yes. The number of days that a person uses public transportation in a week is a strong predictor of their composite communication apprehension score from questions related to their confidence in conversation.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -278,6 +278,26 @@ F-statistic: 6.458 on 1 and 258 DF,  p-value: 0.01163</code></pre>
 </div>
 </div>
 <p>This graph shows the gradual progression in total communication apprehension across responses to the number of days a person has used public transportation per month over the last 3 months. In general, the trend as the number of days public transportation was used per month over the last 3 months is a decrease in total communication apprehension score, with the exception of an excess of 8 or more days per month over the last 3 months.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>pooled_sd <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(((<span class="dv">40-1</span>)<span class="sc">*</span><span class="fl">10.385584</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> (<span class="dv">67-1</span>)<span class="sc">*</span><span class="fl">11.438454</span><span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (<span class="dv">40</span><span class="sc">+</span><span class="dv">67-2</span>))</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(pooled_sd)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 11.0591</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>cohen_d <span class="ot">=</span> (<span class="fl">29.02703</span> <span class="sc">-</span> <span class="fl">27.48485</span>)<span class="sc">/</span>pooled_sd</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cohen_d)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.139449</code></pre>
+</div>
+</div>
+<p>The mean composite communication apprehension scores of the group that never uses public transportation and the group that uses public transportation more than 8 days per month over the last three months differ by 0.14 standard deviations of both groups pooled. This implies that there is a moderately significant difference between their average composite communication apprehension scores.</p>
 </section>
 <section id="remaining-questions-uncertainties" class="level2">
 <h2 class="anchored" data-anchor-id="remaining-questions-uncertainties">Remaining Questions + Uncertainties</h2>
@@ -742,170 +762,133 @@ F-statistic: 6.458 on 1 and 258 DF,  p-value: 0.01163</code></pre>
     }
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Research Memo Template</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Nick Mergendahl"</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "`r lubridate::today()`"</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="an">status:</span><span class="co"> draft</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="an">keywords:</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">  - quarto</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co">  - memo</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co">  - research template</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co">  - reproducible research</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co">  - python</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: false</span></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co">    theme: cosmo</span></span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="co">    margin-left: 0.75in</span></span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="co">    margin-right: 0.75in</span></span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a><span class="co">    margin-top: 0.75in</span></span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="co">    margin-bottom: 0.75in</span></span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="co">    other-links:</span></span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="co">      - text: Download PDF</span></span>
-<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="co">        href: memo_template.pdf</span></span>
-<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="co">      - text: Download Word Document</span></span>
-<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="co">        href: memo_template.docx</span></span>
-<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a><span class="co">  pdf:</span></span>
-<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: false</span></span>
-<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a><span class="co">    geometry:</span></span>
-<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a><span class="co">      - top=0.75in</span></span>
-<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a><span class="co">      - bottom=0.75in</span></span>
-<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a><span class="co">      - left=0.75in</span></span>
-<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a><span class="co">      - right=0.75in</span></span>
-<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a><span class="co">    include-in-header:</span></span>
-<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a><span class="co">      text: |</span></span>
-<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a><span class="co">        \usepackage{titling}</span></span>
-<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a><span class="co">        \renewcommand{\maketitle}{}</span></span>
-<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a><span class="co">        \usepackage{fancyvrb}</span></span>
-<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a><span class="co">        \DefineVerbatimEnvironment{Highlighting}{Verbatim}{fontsize=\small,commandchars=\\\{\}}</span></span>
-<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a><span class="co">        \usepackage{titlesec}</span></span>
-<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a><span class="co">        \titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}</span></span>
-<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a><span class="co">        \titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{1em}{}</span></span>
-<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a><span class="co">        \titleformat{\subsubsection}{\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}</span></span>
-<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a><span class="co">        \titlespacing*{\section}{0pt}{0.5em}{0.25em}</span></span>
-<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a><span class="co">        \titlespacing*{\subsection}{0pt}{0.5em}{0.25em}</span></span>
-<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a><span class="co">        \titlespacing*{\subsubsection}{0pt}{0.5em}{0.25em}</span></span>
-<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a><span class="co">    include-before-body:</span></span>
-<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a><span class="co">      text: |</span></span>
-<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a><span class="co">        \noindent{\Large\bfseries\thetitle}\par</span></span>
-<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a><span class="co">        \vspace{0.25em}</span></span>
-<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a><span class="co">        \noindent\theauthor\hfill\thedate\par</span></span>
-<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a><span class="co">        \vspace{0.5em}</span></span>
-<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a><span class="co">        \noindent\rule{\textwidth}{0.4pt}</span></span>
-<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a><span class="co">        \vspace{0.5em}</span></span>
-<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a><span class="co">  docx:</span></span>
-<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: false</span></span>
-<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span></span>
-<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a><span class="co">  warning: false</span></span>
-<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a><span class="co">  message: false</span></span>
-<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">conflicts.policy =</span> <span class="st">"depends.ok"</span>) </span>
-<span id="cb12-66"><a href="#cb12-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-67"><a href="#cb12-67" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb12-68"><a href="#cb12-68" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych, <span class="at">exclude =</span> <span class="fu">c</span>(<span class="st">"%+%"</span>, <span class="st">"alpha"</span>))</span>
-<span id="cb12-69"><a href="#cb12-69" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
-<span id="cb12-70"><a href="#cb12-70" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Matrix, <span class="at">exclude =</span> <span class="fu">c</span>(<span class="st">"expand"</span>, <span class="st">"pack"</span>, <span class="st">"unpack"</span>))</span>
-<span id="cb12-71"><a href="#cb12-71" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
-<span id="cb12-72"><a href="#cb12-72" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra, <span class="at">exclude =</span> <span class="st">"group_rows"</span>)</span>
-<span id="cb12-73"><a href="#cb12-73" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car, <span class="at">exclude =</span> <span class="fu">c</span>(<span class="st">"recode"</span>, <span class="st">"some"</span>, <span class="st">"logit"</span>))</span>
-<span id="cb12-74"><a href="#cb12-74" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggcorrplot)</span>
-<span id="cb12-75"><a href="#cb12-75" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
-<span id="cb12-76"><a href="#cb12-76" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
-<span id="cb12-77"><a href="#cb12-77" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(effects)</span>
-<span id="cb12-78"><a href="#cb12-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-79"><a href="#cb12-79" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_classic</span>())</span>
-<span id="cb12-80"><a href="#cb12-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-81"><a href="#cb12-81" aria-hidden="true" tabindex="-1"></a>path_data <span class="ot">&lt;-</span> <span class="st">"data"</span></span>
-<span id="cb12-82"><a href="#cb12-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-83"><a href="#cb12-83" aria-hidden="true" tabindex="-1"></a>data_c <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"C:/Users/hardy/OneDrive/Documents/capstone/data/PRCAQualtricsExport_FileC.csv"</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb12-84"><a href="#cb12-84" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-85"><a href="#cb12-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-88"><a href="#cb12-88" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-89"><a href="#cb12-89" aria-hidden="true" tabindex="-1"></a>data_c <span class="ot">&lt;-</span> data_c <span class="sc">|&gt;</span></span>
-<span id="cb12-90"><a href="#cb12-90" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Q2 =</span> <span class="fu">recode</span>(Q2, <span class="st">"Strongly disagree"</span> <span class="ot">=</span> <span class="dv">5</span>, <span class="st">"Somewhat disagree"</span> <span class="ot">=</span> <span class="dv">4</span>, <span class="st">"Neither agree nor disagree"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"Somewhat agree"</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">"Strongly agree"</span> <span class="ot">=</span> <span class="dv">1</span>), </span>
-<span id="cb12-91"><a href="#cb12-91" aria-hidden="true" tabindex="-1"></a>         <span class="at">Q4 =</span> <span class="fu">recode</span>(Q4, <span class="st">"Strongly disagree"</span> <span class="ot">=</span> <span class="dv">5</span>, <span class="st">"Somewhat disagree"</span> <span class="ot">=</span> <span class="dv">4</span>, <span class="st">"Neither agree nor disagree"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"Somewhat agree"</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">"Strongly agree"</span> <span class="ot">=</span> <span class="dv">1</span>), </span>
-<span id="cb12-92"><a href="#cb12-92" aria-hidden="true" tabindex="-1"></a>         <span class="at">Q6 =</span> <span class="fu">recode</span>(Q6, <span class="st">"Strongly disagree"</span> <span class="ot">=</span> <span class="dv">5</span>, <span class="st">"Somewhat disagree"</span> <span class="ot">=</span> <span class="dv">4</span>, <span class="st">"Neither agree nor disagree"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"Somewhat agree"</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">"Strongly agree"</span> <span class="ot">=</span> <span class="dv">1</span>), </span>
-<span id="cb12-93"><a href="#cb12-93" aria-hidden="true" tabindex="-1"></a>         <span class="at">Q14 =</span> <span class="fu">recode</span>(Q14, <span class="st">"Strongly disagree"</span> <span class="ot">=</span> <span class="dv">5</span>, <span class="st">"Somewhat disagree"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"Neither agree nor disagree"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"Somewhat agree"</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">"Strongly agree"</span> <span class="ot">=</span> <span class="dv">1</span>), </span>
-<span id="cb12-94"><a href="#cb12-94" aria-hidden="true" tabindex="-1"></a>         <span class="at">Q16 =</span> <span class="fu">recode</span>(Q16, <span class="st">"Strongly disagree"</span> <span class="ot">=</span> <span class="dv">5</span>, <span class="st">"Somewhat disagree"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"Neither agree nor disagree"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"Somewhat agree"</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">"Strongly agree"</span> <span class="ot">=</span> <span class="dv">1</span>), </span>
-<span id="cb12-95"><a href="#cb12-95" aria-hidden="true" tabindex="-1"></a>         <span class="at">Q17 =</span> <span class="fu">recode</span>(Q17, <span class="st">"Strongly disagree"</span> <span class="ot">=</span> <span class="dv">5</span>, <span class="st">"Somewhat disagree"</span> <span class="ot">=</span> <span class="dv">4</span>, <span class="st">"Neither agree nor disagree"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"Somewhat agree"</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">"Strongly agree"</span> <span class="ot">=</span> <span class="dv">1</span>),</span>
-<span id="cb12-96"><a href="#cb12-96" aria-hidden="true" tabindex="-1"></a>         <span class="at">Q1 =</span> <span class="fu">recode</span>(Q1, <span class="st">"Strongly disagree"</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="st">"Somewhat disagree"</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">"Neither agree nor disagree"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"Somewhat agree"</span> <span class="ot">=</span> <span class="dv">4</span>, <span class="st">"Strongly agree"</span> <span class="ot">=</span> <span class="dv">5</span>), </span>
-<span id="cb12-97"><a href="#cb12-97" aria-hidden="true" tabindex="-1"></a>         <span class="at">Q3 =</span> <span class="fu">recode</span>(Q3, <span class="st">"Strongly disagree"</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="st">"Somewhat disagree"</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">"Neither agree nor disagree"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"Somewhat agree"</span> <span class="ot">=</span> <span class="dv">4</span>, <span class="st">"Strongly agree"</span> <span class="ot">=</span> <span class="dv">5</span>), </span>
-<span id="cb12-98"><a href="#cb12-98" aria-hidden="true" tabindex="-1"></a>         <span class="at">Q5 =</span> <span class="fu">recode</span>(Q5, <span class="st">"Strongly disagree"</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="st">"Somewhat disagree"</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">"Neither agree nor disagree"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"Somewhat agree"</span> <span class="ot">=</span> <span class="dv">4</span>, <span class="st">"Strongly agree"</span> <span class="ot">=</span> <span class="dv">5</span>), </span>
-<span id="cb12-99"><a href="#cb12-99" aria-hidden="true" tabindex="-1"></a>         <span class="at">Q13 =</span> <span class="fu">recode</span>(Q13, <span class="st">"Strongly disagree"</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="st">"Somewhat disagree"</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">"Neither agree nor disagree"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"Somewhat agree"</span> <span class="ot">=</span> <span class="dv">4</span>, <span class="st">"Strongly agree"</span> <span class="ot">=</span> <span class="dv">5</span>), </span>
-<span id="cb12-100"><a href="#cb12-100" aria-hidden="true" tabindex="-1"></a>         <span class="at">Q15 =</span> <span class="fu">recode</span>(Q15, <span class="st">"Strongly disagree"</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="st">"Somewhat disagree"</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="st">"Neither agree nor disagree"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"Somewhat agree"</span> <span class="ot">=</span> <span class="dv">4</span>, <span class="st">"Strongly agree"</span> <span class="ot">=</span> <span class="dv">5</span>), </span>
-<span id="cb12-101"><a href="#cb12-101" aria-hidden="true" tabindex="-1"></a>         <span class="at">Q18 =</span> <span class="fu">recode</span>(Q18, <span class="st">"Strongly disagree"</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="st">"Somewhat disagree"</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="st">"Neither agree nor disagree"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"Somewhat agree"</span> <span class="ot">=</span> <span class="dv">4</span>, <span class="st">"Strongly agree"</span> <span class="ot">=</span> <span class="dv">5</span>))</span>
-<span id="cb12-102"><a href="#cb12-102" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-103"><a href="#cb12-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-106"><a href="#cb12-106" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-107"><a href="#cb12-107" aria-hidden="true" tabindex="-1"></a>data_c <span class="ot">&lt;-</span> data_c <span class="sc">|&gt;</span></span>
-<span id="cb12-108"><a href="#cb12-108" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Q_Composite =</span> ((Q1 <span class="sc">+</span> Q2 <span class="sc">+</span> Q3 <span class="sc">+</span> Q4 <span class="sc">+</span> Q5 <span class="sc">+</span> Q6 <span class="sc">+</span> Q13 <span class="sc">+</span> Q14 <span class="sc">+</span> Q15 <span class="sc">+</span> Q16 <span class="sc">+</span> Q17 <span class="sc">+</span> Q18)))</span>
-<span id="cb12-109"><a href="#cb12-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-110"><a href="#cb12-110" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">min</span>(data_c<span class="sc">$</span>Q_Composite, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb12-111"><a href="#cb12-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-112"><a href="#cb12-112" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">max</span>(data_c<span class="sc">$</span>Q_Composite, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb12-113"><a href="#cb12-113" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-114"><a href="#cb12-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-117"><a href="#cb12-117" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-118"><a href="#cb12-118" aria-hidden="true" tabindex="-1"></a>data_c <span class="sc">|&gt;</span> </span>
-<span id="cb12-119"><a href="#cb12-119" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Q26) <span class="sc">|&gt;</span> </span>
-<span id="cb12-120"><a href="#cb12-120" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_comp =</span> <span class="fu">mean</span>(Q_Composite, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb12-121"><a href="#cb12-121" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb12-122"><a href="#cb12-122" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-123"><a href="#cb12-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-126"><a href="#cb12-126" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-127"><a href="#cb12-127" aria-hidden="true" tabindex="-1"></a>data_c <span class="ot">&lt;-</span> data_c <span class="sc">|&gt;</span></span>
-<span id="cb12-128"><a href="#cb12-128" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Q26_num =</span> <span class="fu">case_match</span>(Q26, <span class="st">"Never"</span> <span class="sc">~</span> <span class="dv">0</span>, <span class="st">"0-1 days a month"</span> <span class="sc">~</span> <span class="dv">1</span>, <span class="st">"2-4 days a month"</span> <span class="sc">~</span> <span class="dv">2</span>, <span class="st">"2-4 days a month"</span> <span class="sc">~</span> <span class="dv">3</span>, <span class="st">"4-8 days a month"</span> <span class="sc">~</span> <span class="dv">3</span>, <span class="st">"8 or more days a month"</span> <span class="sc">~</span> <span class="dv">4</span>))</span>
-<span id="cb12-129"><a href="#cb12-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-130"><a href="#cb12-130" aria-hidden="true" tabindex="-1"></a>m_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Q_Composite <span class="sc">~</span> Q26_num, <span class="at">data =</span> data_c)</span>
-<span id="cb12-131"><a href="#cb12-131" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m_1)</span>
-<span id="cb12-132"><a href="#cb12-132" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-133"><a href="#cb12-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-134"><a href="#cb12-134" aria-hidden="true" tabindex="-1"></a><span class="fu">## Analytical Or Research Question</span></span>
-<span id="cb12-135"><a href="#cb12-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-136"><a href="#cb12-136" aria-hidden="true" tabindex="-1"></a>Does a person's number of days they used public transportation per month on average over the last 3 months predict their composite communication apprehension score from responses to questions about their confidence in conversations?</span>
-<span id="cb12-137"><a href="#cb12-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-138"><a href="#cb12-138" aria-hidden="true" tabindex="-1"></a><span class="fu">## Answer, Response, &amp; Summary of Results</span></span>
-<span id="cb12-139"><a href="#cb12-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-140"><a href="#cb12-140" aria-hidden="true" tabindex="-1"></a>Yes. The number of days that a person uses public transportation in a week is a strong predictor of their composite communication apprehension score from questions related to their confidence in conversation.</span>
-<span id="cb12-141"><a href="#cb12-141" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-144"><a href="#cb12-144" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-145"><a href="#cb12-145" aria-hidden="true" tabindex="-1"></a>data_c <span class="ot">&lt;-</span> data_c <span class="sc">|&gt;</span> </span>
-<span id="cb12-146"><a href="#cb12-146" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">days_str =</span> <span class="fu">as.factor</span>(Q26))</span>
-<span id="cb12-147"><a href="#cb12-147" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-148"><a href="#cb12-148" aria-hidden="true" tabindex="-1"></a>m_graph <span class="ot">&lt;-</span> <span class="fu">lm</span>(Q_Composite <span class="sc">~</span> days_str, <span class="at">data =</span> data_c)</span>
-<span id="cb12-149"><a href="#cb12-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-150"><a href="#cb12-150" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">days_str =</span> <span class="fu">c</span>(<span class="st">"Never"</span>, <span class="st">"0-1 days a month"</span>, <span class="st">"2-4 days a month"</span>, <span class="st">"2-4 days a month"</span>, <span class="st">"4-8 days a month"</span>, <span class="st">"8 or more days a month"</span>))</span>
-<span id="cb12-151"><a href="#cb12-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-152"><a href="#cb12-152" aria-hidden="true" tabindex="-1"></a>preds <span class="ot">&lt;-</span> <span class="fu">predict</span>(m_graph, x, <span class="at">se.fit =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb12-153"><a href="#cb12-153" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb12-154"><a href="#cb12-154" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">upper =</span> fit <span class="sc">+</span> se.fit,</span>
-<span id="cb12-155"><a href="#cb12-155" aria-hidden="true" tabindex="-1"></a>         <span class="at">lower =</span> fit <span class="sc">-</span> se.fit) <span class="sc">|&gt;</span> </span>
-<span id="cb12-156"><a href="#cb12-156" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(x)</span>
-<span id="cb12-157"><a href="#cb12-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-158"><a href="#cb12-158" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(preds, <span class="fu">aes</span>(<span class="at">x =</span> days_str, <span class="at">y =</span> fit, <span class="at">fill =</span> days_str)) <span class="sc">+</span></span>
-<span id="cb12-159"><a href="#cb12-159" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>,  </span>
-<span id="cb12-160"><a href="#cb12-160" aria-hidden="true" tabindex="-1"></a>           <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> .<span class="dv">5</span>), </span>
-<span id="cb12-161"><a href="#cb12-161" aria-hidden="true" tabindex="-1"></a>           <span class="at">width =</span> .<span class="dv">5</span>) <span class="sc">+</span> </span>
-<span id="cb12-162"><a href="#cb12-162" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper), </span>
-<span id="cb12-163"><a href="#cb12-163" aria-hidden="true" tabindex="-1"></a>                <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> .<span class="dv">5</span>), </span>
-<span id="cb12-164"><a href="#cb12-164" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> .<span class="dv">25</span>) <span class="sc">+</span></span>
-<span id="cb12-165"><a href="#cb12-165" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Days in last 3 months"</span>, </span>
-<span id="cb12-166"><a href="#cb12-166" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Total Commucation Apprehension Score"</span>,</span>
-<span id="cb12-167"><a href="#cb12-167" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Days in last 3 months"</span>)</span>
-<span id="cb12-168"><a href="#cb12-168" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-169"><a href="#cb12-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-170"><a href="#cb12-170" aria-hidden="true" tabindex="-1"></a>This graph shows the gradual progression in total communication apprehension across responses to the number of days a person has used public transportation per month over the last 3 months. In general, the trend as the number of days public transportation was used per month over the last 3 months is a decrease in total communication apprehension score, with the exception of an excess of 8 or more days per month over the last 3 months. </span>
-<span id="cb12-171"><a href="#cb12-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-172"><a href="#cb12-172" aria-hidden="true" tabindex="-1"></a><span class="fu">## Remaining Questions + Uncertainties</span></span>
-<span id="cb12-173"><a href="#cb12-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-174"><a href="#cb12-174" aria-hidden="true" tabindex="-1"></a>It seems clear that the number of days a participant has used public transportation per month over the last 3 months reliably predicts their composite communication apprehension score. However, it is not yet clear how other variables can influence these predictions. How can variables like age, gender, and employment status affect these results?</span>
-<span id="cb12-175"><a href="#cb12-175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-176"><a href="#cb12-176" aria-hidden="true" tabindex="-1"></a><span class="fu">## References {.unnumbered}</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Research Memo Template</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Nick Mergendahl"</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "`r lubridate::today()`"</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="an">status:</span><span class="co"> draft</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="an">keywords:</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co">  - quarto</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co">  - memo</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co">  - research template</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co">  - reproducible research</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co">  - python</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## Analytical Or Research Question</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>Does a person's number of days they used public transportation per month on average over the last 3 months predict their composite communication apprehension score from responses to questions about their confidence in conversations?</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="fu">## Answer, Response, &amp; Summary of Results</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>Yes. The number of days that a person uses public transportation in a week is a strong predictor of their composite communication apprehension score from questions related to their confidence in conversation.</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">conflicts.policy =</span> <span class="st">"depends.ok"</span>) </span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych, <span class="at">exclude =</span> <span class="fu">c</span>(<span class="st">"%+%"</span>, <span class="st">"alpha"</span>))</span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Matrix, <span class="at">exclude =</span> <span class="fu">c</span>(<span class="st">"expand"</span>, <span class="st">"pack"</span>, <span class="st">"unpack"</span>))</span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra, <span class="at">exclude =</span> <span class="st">"group_rows"</span>)</span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car, <span class="at">exclude =</span> <span class="fu">c</span>(<span class="st">"recode"</span>, <span class="st">"some"</span>, <span class="st">"logit"</span>))</span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggcorrplot)</span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
+<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(effects)</span>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_classic</span>())</span>
+<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a>path_data <span class="ot">&lt;-</span> <span class="st">"data"</span></span>
+<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a>data_c <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"C:/Users/hardy/OneDrive/Documents/capstone/data/PRCAQualtricsExport_FileC.csv"</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a>data_c <span class="ot">&lt;-</span> data_c <span class="sc">|&gt;</span></span>
+<span id="cb16-50"><a href="#cb16-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Q2 =</span> <span class="fu">recode</span>(Q2, <span class="st">"Strongly disagree"</span> <span class="ot">=</span> <span class="dv">5</span>, <span class="st">"Somewhat disagree"</span> <span class="ot">=</span> <span class="dv">4</span>, <span class="st">"Neither agree nor disagree"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"Somewhat agree"</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">"Strongly agree"</span> <span class="ot">=</span> <span class="dv">1</span>), </span>
+<span id="cb16-51"><a href="#cb16-51" aria-hidden="true" tabindex="-1"></a>         <span class="at">Q4 =</span> <span class="fu">recode</span>(Q4, <span class="st">"Strongly disagree"</span> <span class="ot">=</span> <span class="dv">5</span>, <span class="st">"Somewhat disagree"</span> <span class="ot">=</span> <span class="dv">4</span>, <span class="st">"Neither agree nor disagree"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"Somewhat agree"</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">"Strongly agree"</span> <span class="ot">=</span> <span class="dv">1</span>), </span>
+<span id="cb16-52"><a href="#cb16-52" aria-hidden="true" tabindex="-1"></a>         <span class="at">Q6 =</span> <span class="fu">recode</span>(Q6, <span class="st">"Strongly disagree"</span> <span class="ot">=</span> <span class="dv">5</span>, <span class="st">"Somewhat disagree"</span> <span class="ot">=</span> <span class="dv">4</span>, <span class="st">"Neither agree nor disagree"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"Somewhat agree"</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">"Strongly agree"</span> <span class="ot">=</span> <span class="dv">1</span>), </span>
+<span id="cb16-53"><a href="#cb16-53" aria-hidden="true" tabindex="-1"></a>         <span class="at">Q14 =</span> <span class="fu">recode</span>(Q14, <span class="st">"Strongly disagree"</span> <span class="ot">=</span> <span class="dv">5</span>, <span class="st">"Somewhat disagree"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"Neither agree nor disagree"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"Somewhat agree"</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">"Strongly agree"</span> <span class="ot">=</span> <span class="dv">1</span>), </span>
+<span id="cb16-54"><a href="#cb16-54" aria-hidden="true" tabindex="-1"></a>         <span class="at">Q16 =</span> <span class="fu">recode</span>(Q16, <span class="st">"Strongly disagree"</span> <span class="ot">=</span> <span class="dv">5</span>, <span class="st">"Somewhat disagree"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"Neither agree nor disagree"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"Somewhat agree"</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">"Strongly agree"</span> <span class="ot">=</span> <span class="dv">1</span>), </span>
+<span id="cb16-55"><a href="#cb16-55" aria-hidden="true" tabindex="-1"></a>         <span class="at">Q17 =</span> <span class="fu">recode</span>(Q17, <span class="st">"Strongly disagree"</span> <span class="ot">=</span> <span class="dv">5</span>, <span class="st">"Somewhat disagree"</span> <span class="ot">=</span> <span class="dv">4</span>, <span class="st">"Neither agree nor disagree"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"Somewhat agree"</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">"Strongly agree"</span> <span class="ot">=</span> <span class="dv">1</span>),</span>
+<span id="cb16-56"><a href="#cb16-56" aria-hidden="true" tabindex="-1"></a>         <span class="at">Q1 =</span> <span class="fu">recode</span>(Q1, <span class="st">"Strongly disagree"</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="st">"Somewhat disagree"</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">"Neither agree nor disagree"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"Somewhat agree"</span> <span class="ot">=</span> <span class="dv">4</span>, <span class="st">"Strongly agree"</span> <span class="ot">=</span> <span class="dv">5</span>), </span>
+<span id="cb16-57"><a href="#cb16-57" aria-hidden="true" tabindex="-1"></a>         <span class="at">Q3 =</span> <span class="fu">recode</span>(Q3, <span class="st">"Strongly disagree"</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="st">"Somewhat disagree"</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">"Neither agree nor disagree"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"Somewhat agree"</span> <span class="ot">=</span> <span class="dv">4</span>, <span class="st">"Strongly agree"</span> <span class="ot">=</span> <span class="dv">5</span>), </span>
+<span id="cb16-58"><a href="#cb16-58" aria-hidden="true" tabindex="-1"></a>         <span class="at">Q5 =</span> <span class="fu">recode</span>(Q5, <span class="st">"Strongly disagree"</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="st">"Somewhat disagree"</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">"Neither agree nor disagree"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"Somewhat agree"</span> <span class="ot">=</span> <span class="dv">4</span>, <span class="st">"Strongly agree"</span> <span class="ot">=</span> <span class="dv">5</span>), </span>
+<span id="cb16-59"><a href="#cb16-59" aria-hidden="true" tabindex="-1"></a>         <span class="at">Q13 =</span> <span class="fu">recode</span>(Q13, <span class="st">"Strongly disagree"</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="st">"Somewhat disagree"</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">"Neither agree nor disagree"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"Somewhat agree"</span> <span class="ot">=</span> <span class="dv">4</span>, <span class="st">"Strongly agree"</span> <span class="ot">=</span> <span class="dv">5</span>), </span>
+<span id="cb16-60"><a href="#cb16-60" aria-hidden="true" tabindex="-1"></a>         <span class="at">Q15 =</span> <span class="fu">recode</span>(Q15, <span class="st">"Strongly disagree"</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="st">"Somewhat disagree"</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="st">"Neither agree nor disagree"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"Somewhat agree"</span> <span class="ot">=</span> <span class="dv">4</span>, <span class="st">"Strongly agree"</span> <span class="ot">=</span> <span class="dv">5</span>), </span>
+<span id="cb16-61"><a href="#cb16-61" aria-hidden="true" tabindex="-1"></a>         <span class="at">Q18 =</span> <span class="fu">recode</span>(Q18, <span class="st">"Strongly disagree"</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="st">"Somewhat disagree"</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="st">"Neither agree nor disagree"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"Somewhat agree"</span> <span class="ot">=</span> <span class="dv">4</span>, <span class="st">"Strongly agree"</span> <span class="ot">=</span> <span class="dv">5</span>))</span>
+<span id="cb16-62"><a href="#cb16-62" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-63"><a href="#cb16-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-66"><a href="#cb16-66" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-67"><a href="#cb16-67" aria-hidden="true" tabindex="-1"></a>data_c <span class="ot">&lt;-</span> data_c <span class="sc">|&gt;</span></span>
+<span id="cb16-68"><a href="#cb16-68" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Q_Composite =</span> ((Q1 <span class="sc">+</span> Q2 <span class="sc">+</span> Q3 <span class="sc">+</span> Q4 <span class="sc">+</span> Q5 <span class="sc">+</span> Q6 <span class="sc">+</span> Q13 <span class="sc">+</span> Q14 <span class="sc">+</span> Q15 <span class="sc">+</span> Q16 <span class="sc">+</span> Q17 <span class="sc">+</span> Q18)))</span>
+<span id="cb16-69"><a href="#cb16-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-70"><a href="#cb16-70" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">min</span>(data_c<span class="sc">$</span>Q_Composite, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb16-71"><a href="#cb16-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-72"><a href="#cb16-72" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">max</span>(data_c<span class="sc">$</span>Q_Composite, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb16-73"><a href="#cb16-73" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-74"><a href="#cb16-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-77"><a href="#cb16-77" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-78"><a href="#cb16-78" aria-hidden="true" tabindex="-1"></a>data_c <span class="sc">|&gt;</span> </span>
+<span id="cb16-79"><a href="#cb16-79" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Q26) <span class="sc">|&gt;</span> </span>
+<span id="cb16-80"><a href="#cb16-80" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_comp =</span> <span class="fu">mean</span>(Q_Composite, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">sd_comp =</span> <span class="fu">sd</span>(Q_Composite, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb16-81"><a href="#cb16-81" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb16-82"><a href="#cb16-82" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-83"><a href="#cb16-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-86"><a href="#cb16-86" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-87"><a href="#cb16-87" aria-hidden="true" tabindex="-1"></a>data_c <span class="ot">&lt;-</span> data_c <span class="sc">|&gt;</span></span>
+<span id="cb16-88"><a href="#cb16-88" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Q26_num =</span> <span class="fu">case_match</span>(Q26, <span class="st">"Never"</span> <span class="sc">~</span> <span class="dv">0</span>, <span class="st">"0-1 days a month"</span> <span class="sc">~</span> <span class="dv">1</span>, <span class="st">"2-4 days a month"</span> <span class="sc">~</span> <span class="dv">2</span>, <span class="st">"2-4 days a month"</span> <span class="sc">~</span> <span class="dv">3</span>, <span class="st">"4-8 days a month"</span> <span class="sc">~</span> <span class="dv">3</span>, <span class="st">"8 or more days a month"</span> <span class="sc">~</span> <span class="dv">4</span>))</span>
+<span id="cb16-89"><a href="#cb16-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-90"><a href="#cb16-90" aria-hidden="true" tabindex="-1"></a>m_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Q_Composite <span class="sc">~</span> Q26_num, <span class="at">data =</span> data_c)</span>
+<span id="cb16-91"><a href="#cb16-91" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m_1)</span>
+<span id="cb16-92"><a href="#cb16-92" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-93"><a href="#cb16-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-96"><a href="#cb16-96" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-97"><a href="#cb16-97" aria-hidden="true" tabindex="-1"></a>data_c <span class="ot">&lt;-</span> data_c <span class="sc">|&gt;</span> </span>
+<span id="cb16-98"><a href="#cb16-98" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">days_str =</span> <span class="fu">as.factor</span>(Q26))</span>
+<span id="cb16-99"><a href="#cb16-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-100"><a href="#cb16-100" aria-hidden="true" tabindex="-1"></a>m_graph <span class="ot">&lt;-</span> <span class="fu">lm</span>(Q_Composite <span class="sc">~</span> days_str, <span class="at">data =</span> data_c)</span>
+<span id="cb16-101"><a href="#cb16-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-102"><a href="#cb16-102" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">days_str =</span> <span class="fu">c</span>(<span class="st">"Never"</span>, <span class="st">"0-1 days a month"</span>, <span class="st">"2-4 days a month"</span>, <span class="st">"2-4 days a month"</span>, <span class="st">"4-8 days a month"</span>, <span class="st">"8 or more days a month"</span>))</span>
+<span id="cb16-103"><a href="#cb16-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-104"><a href="#cb16-104" aria-hidden="true" tabindex="-1"></a>preds <span class="ot">&lt;-</span> <span class="fu">predict</span>(m_graph, x, <span class="at">se.fit =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb16-105"><a href="#cb16-105" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb16-106"><a href="#cb16-106" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">upper =</span> fit <span class="sc">+</span> se.fit,</span>
+<span id="cb16-107"><a href="#cb16-107" aria-hidden="true" tabindex="-1"></a>         <span class="at">lower =</span> fit <span class="sc">-</span> se.fit) <span class="sc">|&gt;</span> </span>
+<span id="cb16-108"><a href="#cb16-108" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(x)</span>
+<span id="cb16-109"><a href="#cb16-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-110"><a href="#cb16-110" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(preds, <span class="fu">aes</span>(<span class="at">x =</span> days_str, <span class="at">y =</span> fit, <span class="at">fill =</span> days_str)) <span class="sc">+</span></span>
+<span id="cb16-111"><a href="#cb16-111" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>,  </span>
+<span id="cb16-112"><a href="#cb16-112" aria-hidden="true" tabindex="-1"></a>           <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> .<span class="dv">5</span>), </span>
+<span id="cb16-113"><a href="#cb16-113" aria-hidden="true" tabindex="-1"></a>           <span class="at">width =</span> .<span class="dv">5</span>) <span class="sc">+</span> </span>
+<span id="cb16-114"><a href="#cb16-114" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper), </span>
+<span id="cb16-115"><a href="#cb16-115" aria-hidden="true" tabindex="-1"></a>                <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> .<span class="dv">5</span>), </span>
+<span id="cb16-116"><a href="#cb16-116" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> .<span class="dv">25</span>) <span class="sc">+</span></span>
+<span id="cb16-117"><a href="#cb16-117" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Days in last 3 months"</span>, </span>
+<span id="cb16-118"><a href="#cb16-118" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Total Commucation Apprehension Score"</span>,</span>
+<span id="cb16-119"><a href="#cb16-119" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Days in last 3 months"</span>)</span>
+<span id="cb16-120"><a href="#cb16-120" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-121"><a href="#cb16-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-122"><a href="#cb16-122" aria-hidden="true" tabindex="-1"></a>This graph shows the gradual progression in total communication apprehension across responses to the number of days a person has used public transportation per month over the last 3 months. In general, the trend as the number of days public transportation was used per month over the last 3 months is a decrease in total communication apprehension score, with the exception of an excess of 8 or more days per month over the last 3 months.</span>
+<span id="cb16-123"><a href="#cb16-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-126"><a href="#cb16-126" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-127"><a href="#cb16-127" aria-hidden="true" tabindex="-1"></a>pooled_sd <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(((<span class="dv">40-1</span>)<span class="sc">*</span><span class="fl">10.385584</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> (<span class="dv">67-1</span>)<span class="sc">*</span><span class="fl">11.438454</span><span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (<span class="dv">40</span><span class="sc">+</span><span class="dv">67-2</span>))</span>
+<span id="cb16-128"><a href="#cb16-128" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(pooled_sd)</span>
+<span id="cb16-129"><a href="#cb16-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-130"><a href="#cb16-130" aria-hidden="true" tabindex="-1"></a>cohen_d <span class="ot">=</span> (<span class="fl">29.02703</span> <span class="sc">-</span> <span class="fl">27.48485</span>)<span class="sc">/</span>pooled_sd</span>
+<span id="cb16-131"><a href="#cb16-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-132"><a href="#cb16-132" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cohen_d)</span>
+<span id="cb16-133"><a href="#cb16-133" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-134"><a href="#cb16-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-135"><a href="#cb16-135" aria-hidden="true" tabindex="-1"></a>The mean composite communication apprehension scores of the group that never uses public transportation and the group that uses public transportation more than 8 days per month over the last three months differ by 0.14 standard deviations of both groups pooled. This implies that there is a moderately significant difference between their average composite communication apprehension scores.</span>
+<span id="cb16-136"><a href="#cb16-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-137"><a href="#cb16-137" aria-hidden="true" tabindex="-1"></a><span class="fu">## Remaining Questions + Uncertainties</span></span>
+<span id="cb16-138"><a href="#cb16-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-139"><a href="#cb16-139" aria-hidden="true" tabindex="-1"></a>It seems clear that the number of days a participant has used public transportation per month over the last 3 months reliably predicts their composite communication apprehension score. However, it is not yet clear how other variables can influence these predictions. How can variables like age, gender, and employment status affect these results?</span>
+<span id="cb16-140"><a href="#cb16-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-141"><a href="#cb16-141" aria-hidden="true" tabindex="-1"></a><span class="fu">## References {.unnumbered}</span></span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

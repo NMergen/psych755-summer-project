@@ -9,55 +9,15 @@ keywords:
   - research template
   - reproducible research
   - python
-format:
-  html:
-    toc: false
-    theme: cosmo
-    code-fold: true
-    code-tools: true
-    margin-left: 0.75in
-    margin-right: 0.75in
-    margin-top: 0.75in
-    margin-bottom: 0.75in
-    other-links:
-      - text: Download PDF
-        href: memo_template.pdf
-      - text: Download Word Document
-        href: memo_template.docx
-  pdf:
-    toc: false
-    geometry:
-      - top=0.75in
-      - bottom=0.75in
-      - left=0.75in
-      - right=0.75in
-    include-in-header:
-      text: |
-        \usepackage{titling}
-        \renewcommand{\maketitle}{}
-        \usepackage{fancyvrb}
-        \DefineVerbatimEnvironment{Highlighting}{Verbatim}{fontsize=\small,commandchars=\\\{\}}
-        \usepackage{titlesec}
-        \titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}
-        \titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{1em}{}
-        \titleformat{\subsubsection}{\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
-        \titlespacing*{\section}{0pt}{0.5em}{0.25em}
-        \titlespacing*{\subsection}{0pt}{0.5em}{0.25em}
-        \titlespacing*{\subsubsection}{0pt}{0.5em}{0.25em}
-    include-before-body:
-      text: |
-        \noindent{\Large\bfseries\thetitle}\par
-        \vspace{0.25em}
-        \noindent\theauthor\hfill\thedate\par
-        \vspace{0.5em}
-        \noindent\rule{\textwidth}{0.4pt}
-        \vspace{0.5em}
-  docx:
-    toc: false
-execute:
-  warning: false
-  message: false
 ---
+
+## Analytical Or Research Question
+
+Does a person's number of days they used public transportation per month on average over the last 3 months predict their composite communication apprehension score from responses to questions about their confidence in conversations?
+
+## Answer, Response, & Summary of Results
+
+Yes. The number of days that a person uses public transportation in a week is a strong predictor of their composite communication apprehension score from questions related to their confidence in conversation.
 
 ```{r}
 options(conflicts.policy = "depends.ok") 
@@ -109,7 +69,7 @@ print(max(data_c$Q_Composite, na.rm = TRUE))
 ```{r}
 data_c |> 
   group_by(Q26) |> 
-  summarize(mean_comp = mean(Q_Composite, na.rm = TRUE)) |>
+  summarize(mean_comp = mean(Q_Composite, na.rm = TRUE), sd_comp = sd(Q_Composite, na.rm = TRUE), n = n()) |>
   ungroup()
 ```
 
@@ -120,14 +80,6 @@ data_c <- data_c |>
 m_1 <- lm(Q_Composite ~ Q26_num, data = data_c)
 summary(m_1)
 ```
-
-## Analytical Or Research Question
-
-Does a person's number of days they used public transportation per month on average over the last 3 months predict their composite communication apprehension score from responses to questions about their confidence in conversations?
-
-## Answer, Response, & Summary of Results
-
-Yes. The number of days that a person uses public transportation in a week is a strong predictor of their composite communication apprehension score from questions related to their confidence in conversation.
 
 ```{r}
 data_c <- data_c |> 
@@ -155,7 +107,18 @@ ggplot(preds, aes(x = days_str, y = fit, fill = days_str)) +
        fill = "Days in last 3 months")
 ```
 
-This graph shows the gradual progression in total communication apprehension across responses to the number of days a person has used public transportation per month over the last 3 months. In general, the trend as the number of days public transportation was used per month over the last 3 months is a decrease in total communication apprehension score, with the exception of an excess of 8 or more days per month over the last 3 months. 
+This graph shows the gradual progression in total communication apprehension across responses to the number of days a person has used public transportation per month over the last 3 months. In general, the trend as the number of days public transportation was used per month over the last 3 months is a decrease in total communication apprehension score, with the exception of an excess of 8 or more days per month over the last 3 months.
+
+```{r}
+pooled_sd <- sqrt(((40-1)*10.385584^2 + (67-1)*11.438454^2) / (40+67-2))
+print(pooled_sd)
+
+cohen_d = (29.02703 - 27.48485)/pooled_sd
+
+print(cohen_d)
+```
+
+The mean composite communication apprehension scores of the group that never uses public transportation and the group that uses public transportation more than 8 days per month over the last three months differ by 0.14 standard deviations of both groups pooled. This implies that there is a moderately significant difference between their average composite communication apprehension scores.
 
 ## Remaining Questions + Uncertainties
 
