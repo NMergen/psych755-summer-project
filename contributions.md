@@ -1,8 +1,11 @@
 # Contributions
 
 **Group:** [psych755-summer]
+
 **Group Members:** [Brenna Pratt, Sasha Sweat, Nick Mergendahl]
-**Project:** [tbd]
+
+**Project:** []
+
 **Repository:** [https://github.com/bepratt/psych755-summer-project.git]
 
 ---
@@ -59,11 +62,11 @@ The last bullet in each section asks which portion of the data science process y
 
 ## Student 1: [Brenna Pratt] (`bepratt`)
 
-- **The component I "owned" and that I summarize here is best described as** *[One or two sentences. Name the thing. "The ingestion layer," "the model comparison and cross-validation," "the figure pipeline." Not "I helped with the analysis."]*
-- **You can find this contribution in a file called** `filename.qmd` **at lines** XX–YY. *[Add a permalink. List more than one file if the component genuinely spans them.]*
-- **Owning this component means** *[What did owning it actually involve — designing it? writing it? debugging it? deciding between alternatives? Use verbs. If someone else contributed to it, say what they did and where they claim it.]*
+- **The component I "owned" and that I summarize here is best described as** *[regression analysis and the literature review.]*
+- **You can find this contribution in a file called** `manuscript.qmd` **at lines** XX–YY and file `references.bib`. *[***manuscript link*** and https://github.com/bepratt/psych755-summer-project/blob/49f319248bb7b0e0504d746b839aa989181ac670/references.bib ]*
+- **Owning this component meannt** *[that I needed to decide how to handle the data, including deciding how to code the communication apprehension score, and what type of analysis to run in order to determine if group communication apprehension correlates with public transportation usage and how that factors into our larger research question. This required that I double check all communication-related questions were included in the composite score and that appropriate questions were reverse coded if necessary.]*
 - **The commits or PRs that are most relevant are** *[Two to four actual links. Not SHAs typed out as text — links we can click.]*
-- **The portion of the data science process that this effort contributes to is** *[Name the stage. Say why your part of it mattered to the project's findings.]*
+- **The portion of the data science process that this effort contributes to is** *[Select + Apply. Say why your part of it mattered to the project's findings.]*
 
 ---
 
