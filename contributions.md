@@ -4,7 +4,7 @@
 
 **Group Members:** [Brenna Pratt, Sasha Sweat, Nick Mergendahl]
 
-**Project:** []
+**Project:** [Is Public Transportation Usage a Function of Communication Apprehension?]
 
 **Repository:** [https://github.com/bepratt/psych755-summer-project.git]
 
@@ -94,6 +94,6 @@ The last bullet in each section asks which portion of the data science process y
 
 By adding your name below, each member affirms that the account of their own contribution is accurate, and that they have read the other four sections and believe them to be accurate as well.
 
-- [ ] [Brenna Pratt] (`bepratt`) — [date]
-- [ ] [Sasha Sweat] (`sweat2-create`) — [date]
+- [ ] [Brenna Pratt] (`bepratt`) — [8-6-2026]
+- [ ] [Sasha Sweat] (`sweat2-create`) — [8-6-2026]
 - [ ] [Nick Mergendahl] (`NMergen`) — [8-5-2026]
