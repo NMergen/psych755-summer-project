@@ -20,6 +20,10 @@ This manuscript is our submission for the summer semester project for Psych 755 
 
 ## Lit Review 
 
+There is existing research that indicates a significant negative correlation between high group Communication Apprehension (CA) scores and public transportation frequency usage. Because public transit settings have been indicated to predict heightened levels of generalized anxiety and distress among adult populations (@SarmientoSuarez2026), it is reasonable that individuals with elevated baseline communication apprehension would avoid high-stimulus, socially dense environments, like public transportation, disproportionately when compared to more relaxed peers.
+
+While there is substantial evidence that access to robust public transportation can actually improve mental wellbeing (@cdcfoundation2020hi5), there is also substantial research on transit-induced stress that may support our hypothesis that public transportation usage is a function of group Communication Apprehension.
+
 ## Research Questions
 
 Our overarching research question explored whether public transportation usage was a function of group communication apprehension. We investigated that relationship with the following questions:
@@ -29,8 +33,9 @@ Our overarching research question explored whether public transportation usage w
   - $H_a$: There is a correlation between group communication apprehension and public transportation usage. 
 
 - **RQ2:** Does a person's number of days they used public transportation per month on average over the last 3 months predict their composite communication apprehension score from responses to questions about their confidence in conversations?
-  - $H_0$: 
-  - $H_a$: 
+  - $H_0$: Individuals who feel comfortable in group discussions do not use public transportation more on a regular basis.
+  - $H_a$: Individuals who feel comfortable in group discussions do use public transportation more on a regular basis.
+
 
 - **RQ3:** Do individuals who feel comfortable in group discussions use public transportation more on a regular basis?
   - $H_0$: Individuals who feel comfortable in group discussions do not use public transportation more on a regular basis.
@@ -187,6 +192,32 @@ The regression analysis revealed a significant negative relationship between gro
 ## RQ2- Does a person's number of days they used public transportation per month on average over the last 3 months predict their composite communication apprehension score from responses to questions about their confidence in conversations?
 
 Our research memo for Student C, which discussed an ANOVA model determining whether a participant’s response to a survey question asking how many days they use public transportation in a month on average could predict their calculated composite score for communication apprehension. The test showed that the response could predict the composite score, with the mean composite communication apprehension scores of respondents who said they never used public transportation shown to be significantly higher than those who used public transportation more than 7 days in a month.
+
+```{r}
+data_c <- data_c |> 
+  mutate(days_str = as.factor(Q26))
+
+m_graph <- lm(Q_Composite ~ days_str, data = data_c)
+
+x <- expand.grid(days_str = c("Never", "0-1 days a month", "2-4 days a month", "2-4 days a month", "4-8 days a month", "8 or more days a month"))
+
+preds <- predict(m_graph, x, se.fit = TRUE) |> 
+  as_tibble() |> 
+  mutate(upper = fit + se.fit,
+         lower = fit - se.fit) |> 
+  bind_cols(x)
+
+ggplot(preds, aes(x = days_str, y = fit, fill = days_str)) +
+  geom_bar(stat = "identity",  
+           position = position_dodge(width = .5), 
+           width = .5) + 
+  geom_errorbar(aes(ymin = lower, ymax = upper), 
+                position = position_dodge(width = .5), 
+                width = .25) +
+  labs(x = "Days in last 3 months", 
+       y = "Total Commucation Apprehension Score",
+       fill = "Days in last 3 months")
+```
 
 ## RQ3- Do individuals who feel comfortable in group discussions use public transportation more on a regular basis?
 
