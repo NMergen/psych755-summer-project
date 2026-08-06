@@ -147,6 +147,12 @@ This table explains the key descriptive statistics of our merged dataset. The co
 To address RQ1, we conducted a simple linear regression analysis examining the correlation between group communication apprehension and public transportation usage. The analysis used the mean communication apprehension score (calculated from 12 survey items with appropriate reverse coding) as the predictor variable and mean public transportation usage score (calculated from 4 survey items) as the outcome variable.
 
 ```{python}
+#| label: Regression.png
+#| fig-cap: "Regression Results"
+![Table](Regression.png)
+```
+
+```{python}
 #| label: tbl-regression-results
 #| tbl-cap: "Regression Results for Communication Apprehension Predicting Public Transportation Usage"
 
@@ -188,6 +194,12 @@ The regression analysis revealed a significant negative relationship between gro
 ## RQ2- Does a person's number of days they used public transportation per month on average over the last 3 months predict their composite communication apprehension score from responses to questions about their confidence in conversations?
 
 Our research memo for Student C, which discussed an ANOVA model determining whether a participant’s response to a survey question asking how many days they use public transportation in a month on average could predict their calculated composite score for communication apprehension. The test showed that the response could predict the composite score, with the mean composite communication apprehension scores of respondents who said they never used public transportation shown to be significantly higher than those who used public transportation more than 7 days in a month.
+
+```{python}
+#| label: ANOVA_plot.png
+#| fig-cap: "Bar Chart Showing Public Transportation Usage in the Last 3 Months Based on Communication Aprehension Scores"
+![Bar Chart](ANOVA_plot.png)
+```
 
 ```{r}
 data_c <- data_c |> 
