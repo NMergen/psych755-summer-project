@@ -141,7 +141,7 @@ This table explains the key descriptive statistics of our merged dataset. The co
 
 # Results 
 
-## RQ1: Group Communication Apprehension and Public Transportation Usage
+## RQ1: Does group communication apprehension correlate with public transportation usage?
 
 To address RQ1, we conducted a simple linear regression analysis examining the correlation between group communication apprehension and public transportation usage. The analysis used the mean communication apprehension score (calculated from 12 survey items with appropriate reverse coding) as the predictor variable and mean public transportation usage score (calculated from 4 survey items) as the outcome variable.
 
@@ -184,10 +184,47 @@ pd.DataFrame(table_data)
 
 The regression analysis revealed a significant negative relationship between group communication apprehension and public transportation usage. The slope of -0.4147 indicates that as communication apprehension increases, public transportation usage decreases. The R-squared value of 0.108 implies that approximately 10.8% of the variance in public transportation usage can be explained by communication apprehension. The p-value < 0.001 indicates that this relationship is statistically significant, which led us to reject the null hypothesis and conclude that there is a correlation between group communication apprehension and public transportation usage.
 
-## RQ3
+## RQ2- Does a person's number of days they used public transportation per month on average over the last 3 months predict their composite communication apprehension score from responses to questions about their confidence in conversations?
 
 Our research memo for Student C, which discussed an ANOVA model determining whether a participant’s response to a survey question asking how many days they use public transportation in a month on average could predict their calculated composite score for communication apprehension. The test showed that the response could predict the composite score, with the mean composite communication apprehension scores of respondents who said they never used public transportation shown to be significantly higher than those who used public transportation more than 7 days in a month.
 
+## RQ3- Do individuals who feel comfortable in group discussions use public transportation more on a regular basis?
+
+```{python}
+#| label: comtran.pmg
+#| fig-cap: "Violin Plot Comparing Public Transport Use (Q26) and Comfort in Group Discussions (Q2)"
+![Violin Plot](comtran.png)
+```
+
+@comtran.pmg presents a violin plot visualization displaying public transportation use and comfort in group conversations: On the y-axis (ranging from never to 8 or more days a month) is a scale of how often partcipants have used pulbic transportation in the last three months. The x-axis displays a likert scale (ranging from strongly agree to strongly disagree) measuring how much the partcipants agreed with the statement "Generally, I am comfortable while participating in group discussions". We are shown narrowing violin shapes clustered around 8 or more days a month for individuals that strongly and somewhat disagreed with the statement. The violin plot also displays much wider distributions extending around never. Together, these visuals demonstrate that individuals who don't feel comfortable in group discussions use public transportation less in a given three month period. 
+
+```{r}
+#| label: violin-plot
+#| fig-width: 9
+#| fig-height: 6.5
+comtran <- ggplot(merged_clean, aes(x = Q2, y = Q26_num, fill = Q2)) +
+  geom_violin(trim = FALSE, alpha = 0.8, color = "gray30") +
+  geom_jitter(width = 0.08, height = 0.1, alpha = 0.4, size = 1.5) +
+  scale_y_continuous(
+    breaks = 1:5,
+    labels = transit_levels,
+    limits = c(0.5, 5.5)
+  ) +
+  scale_fill_brewer(palette = "PuBu", guide = "none") +
+  labs(
+    title = "Public Transportation Use and Comfort in Group Discussions",
+    x = "Q2: \"Generally, I am comfortable while participating in group discussions\"",
+    y = "Q26: Days used public transportation in the last 3 months"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5, size = 13),
+    axis.text.x = element_text(angle = 20, hjust = 1)
+  )
+
+comtran
+```
+The violin plot illustrates the trend that individuals who answered 'strongly agree' to the statement "Generally, I am comfortable in group discussions" reported using transportation 8 or more days in a month at a higher rate than those who answered 'strongly disagree'. Individuals who answered strongly disagree also reported never using public in the last three months at a much higher rate than those who answered 'strongly agree'.
 
 # Discussion & Suggestions for Next Steps
 
