@@ -178,12 +178,12 @@ else:
     print("*Regression analysis requires actual data files to run properly.*")
 
 table_data = {
-    'R-squared': f"{r_squared:.3f}",
-    'Sample size': len(y),
-    'Slope': f"{slope:.4f}",
-    'Intercept': f"{intercept:.4f}",
-    'p-value': f"{p_value:.4f}",
-    'Standard error': f"{std_err:.4f}"
+    'R-squared': [f"{r_squared:.3f}"],
+    'Sample size': [len(y)],
+    'Slope': [f"{slope:.4f}"],
+    'Intercept': [f"{intercept:.4f}"],
+    'p-value': [f"{p_value:.4f}"],
+    'Standard error': [f"{std_err:.4f}"]
 }
 
 pd.DataFrame(table_data)
