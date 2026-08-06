@@ -215,6 +215,8 @@ ggplot(preds, aes(x = days_str, y = fit, fill = days_str)) +
        fill = "Days in last 3 months")
 ```
 
+This chart represents the average composite communication apprehension score across all participants based on their answer to the question about the number of days they used public transportation in a month, with margins for significant error included. There is a significant difference seen between the mean composite communication scores for participants who answered that they never used public transportation and those who answered that they used public transportation more than 7 days in a month.
+
 ## RQ3- Do individuals who feel comfortable in group discussions use public transportation more on a regular basis?
 
 ```{python}
