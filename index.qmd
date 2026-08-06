@@ -224,7 +224,7 @@ comtran <- ggplot(merged_clean, aes(x = Q2, y = Q26_num, fill = Q2)) +
 
 comtran
 ```
-The violin plot illustrates the trend that individuals who answered 'strongly agree' to the statement "Generally, I am comfortable in group discussions" reported using transportation 8 or more days in a month at a higher rate than those who answered 'strongly disagree'. Individuals who answered strongly disagree also reported never using public in the last three months at a much higher rate than those who answered 'strongly agree'.
+The violin plot illustrates that individuals who answered 'strongly agree' to the statement "Generally, I am comfortable in group discussions" reported using transportation 8 or more days in a month at a higher rate than those who answered 'strongly disagree'. Individuals who answered strongly disagree also reported never using public in the last three months at a much higher rate than those who answered 'strongly agree'.
 
 # Discussion & Suggestions for Next Steps
 
