@@ -18,11 +18,27 @@ bibliography: references.bib
 # Introduction
 This manuscript is our submission for the summer semester project for Psych 755 at UW-Madison and its course entitled Tools for Large Scale Data Science. In this project we demonstrate usage of the following tools: Python, R, Markdown, Quarto, Github, Agentic IDEs, and Ollama. 
 
-## Lit Review Here
+## Lit Review 
 
 ## Research Questions
 
-Our overarching research question was “Is public transportation usage a function of group communication apprehension?”. We investigated whether group communication apprehension correlates with public transportation usage by exploring how a person's number of days they used public transportation per month on average over the last 3 months predict their composite communication apprehension score from responses to questions about their confidence in conversations and group settings.
+Our overarching research question explored whether public transportation usage was a function of group communication apprehension. We investigated that relationship with the following questions:
+
+- **RQ1:** Does group communication apprehension correlate with public transportation usage? *Brenna Update This If It Changed*
+  - $H_0$:   
+  - $H_a$: 
+
+- **RQ2:** Does a person's number of days they used public transportation per month on average over the last 3 months predict their composite communication apprehension score from responses to questions about their confidence in conversations?
+  - $H_0$: 
+  - $H_a$: 
+
+- **RQ3:** Do individuals who feel comfortable in group discussions use public transportation more on a regular basis?
+  - $H_0$: Individuals who feel comfortable in group discussions do not use public transportation more on a regular basis.
+  - $H_a$: Individuals who feel comfortable in group discussions do use public transportation more on a regular basis.
+
+- **RQ4:** Comparing different machine-learning models to predict communication apprehension from age and transportation habits better than a baseline mean model?  
+  - $H_0$: Machine-learning models do not improve prediction over the baseline mean model.  
+  - $H_a$: At least one machine-learning model achieves a lower RMSE than the baseline mean model.
 
 # Data & Methods
 
