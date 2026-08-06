@@ -1,1 +1,48 @@
+---
+title: "Is Public Transportation Usage a Function of Group Communication Apprehension?"
+author: "Sasha Sweat, Brenna Pratt, Nick Mergendahl"
+date: today
+execute:
+  warning: false
+  message: false
+  echo: true
+format:
+  html:
+    toc: true
+    number-sections: true
+  pdf:
+    toc: true
+    number-sections: true
+bibliography: references.bib
+---
+# Introduction
+This manuscript is our submission for the summer semester project for Psych 755 at UW-Madison and its course entitled Tools for Large Scale Data Science. In this project we demonstrate usage of the following tools: Python, R, Markdown, Quarto, Github, Agentic IDEs, and Ollama. 
 
+## Lit Review Here
+
+## Research Questions
+
+Our overarching research question was “Is public transportation usage a function of group communication apprehension?”. We investigated whether group communication apprehension correlates with public transportation usage by exploring how a person's number of days they used public transportation per month on average over the last 3 months predict their composite communication apprehension score from responses to questions about their confidence in conversations and group settings.
+
+# Data & Methods
+
+## Data Preparation
+
+### Data Collection and Merging
+
+Our data was collected from Prolific and Qualtrics Survey responses. 
+*Discussion of Merging.*
+
+### Data Cleaning and Coding
+
+We prepared our data for analysis by recoding survey responses to questions about communication apprehension to numeric values on a 5-point scale: Responses of “Strongly disagree” to questions about communication apprehension were coded as 1, “Somewhat disagree” as 2, “Neither agree nor disagree” as 3, “Somewhat agree” as 4, and “Strongly agree” as 5, and the reverse was true for reverse coded questions that asked about communication confidence. We then added the total number for each question response about communication apprehension or confidence together to get a total composite score for communication apprehension.
+
+### Descriptive Statistics
+
+# Results 
+
+Our research memo for Student C, which discussed an ANOVA model determining whether a participant’s response to a survey question asking how many days they use public transportation in a month on average could predict their calculated composite score for communication apprehension. The test showed that the response could predict the composite score, with the mean composite communication apprehension scores of respondents who said they never used public transportation shown to be significantly higher than those who used public transportation more than 7 days in a month.
+
+# Discussion & Suggestions for Next Steps
+
+This analysis establishes correlation but cannot determine causality. Nature vs. Nurture: Does higher communication apprehension actually lead to reduced public transportation use, or do individuals with different transportation patterns develop different communication styles? The communication apprehension scale needs validation to ensure it reliably measures interest or comfortability in group settings. Additional control variables (urban/rural, income, accessibility needs, prevalence of transportation network) may influence an individual's communication patterns and transportation choices. The sample also may have selection bias from Prolific participants, which limits generalizability. It seems clear that the number of days a participant has used public transportation per month over the last 3 months reliably predicts their composite communication apprehension score. However, it is not yet clear how other variables can influence these predictions. How can variables like age, gender, and employment status affect these results?
