@@ -63,7 +63,7 @@ The last bullet in each section asks which portion of the data science process y
 ## Student 1: [Brenna Pratt] (`bepratt`)
 
 - **The component I "owned" and that I summarize here is best described as** *[regression analysis and the literature review.]*
-- **You can find this contribution in a file called** `manuscript.qmd` **at lines** XX–YY and file `references.bib`. *[***manuscript link*** and https://github.com/bepratt/psych755-summer-project/blob/49f319248bb7b0e0504d746b839aa989181ac670/references.bib ]*
+- **You can find this contribution in a file called** `index.qmd` **at lines** XX–YY and file `references.bib`. *[***manuscript link*** and https://github.com/bepratt/psych755-summer-project/blob/49f319248bb7b0e0504d746b839aa989181ac670/references.bib ]*
 - **Owning this component meannt** *[that I needed to decide how to handle the data, including deciding how to code the communication apprehension score, and what type of analysis to run in order to determine if group communication apprehension correlates with public transportation usage and how that factors into our larger research question. This required that I double check all communication-related questions were included in the composite score and that appropriate questions were reverse coded if necessary.]*
 - **The commits or PRs that are most relevant are** *[Two to four actual links. Not SHAs typed out as text — links we can click.]*
 - **The portion of the data science process that this effort contributes to is** *[Select + Apply. Say why your part of it mattered to the project's findings.]*
@@ -72,11 +72,11 @@ The last bullet in each section asks which portion of the data science process y
 
 ## Student 2: [Sasha Sweat] (`sweat2-create`)
 
-- **The component I "owned" and that I summarize here is best described as**
-- **You can find this contribution in a file called** `filename.qmd` **at lines** XX–YY.
-- **Owning this component means**
-- **The commits or PRs that are most relevant are**
-- **The portion of the data science process that this effort contributes to is**
+- **The component I "owned" and that I summarize here is best described as** *[violin plot and data visualizations]*
+- **You can find this contribution in a file called** `index.qmd` **at lines 199-227** *[https://github.com/bepratt/psych755-summer-project/blob/e310f0398f42ea2a14b35df59d9a4b82574314c7/index.qmd#L191]*.
+- **Owning this component means** *[]*
+- **The commits or PRs that are most relevant are** *[]*
+- **The portion of the data science process that this effort contributes to is** *[Select + Apply and Interpret]*
 
 ---
 
