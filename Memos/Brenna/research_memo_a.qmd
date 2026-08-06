@@ -1,7 +1,7 @@
 ---
 title: "Regression Analysis: Group Communication Apprehension and Public Transportation Usage"
 author: "Brenna Pratt"
-date: "2026-07-29"
+date: "2026-07-30"
 status: draft
 keywords:
   - regression
@@ -119,11 +119,16 @@ usage_mapping = {
     '8 or more days a month': 4
 }
 
-# Convert communication apprehension items (Q1-Q6) to numeric
-ca_items = ['Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6']
+# Convert communication apprehension items (Q1-Q6, Q13-Q18) to numeric
+ca_items = ['Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q13', 'Q14', 'Q15', 'Q16', 'Q17', 'Q18']
+reverse_coded = ['Q2', 'Q4', 'Q6', 'Q14', 'Q16', 'Q17']
+
 for item in ca_items:
     if item in merged_data.columns:
         merged_data[item + '_num'] = merged_data[item].map(likert_mapping)
+        # Reverse code items (1->5, 2->4, 3->3, 4->2, 5->1)
+        if item in reverse_coded:
+            merged_data[item + '_num'] = 6 - merged_data[item + '_num']
 
 # Calculate communication apprehension mean score
 ca_numeric_cols = [item + '_num' for item in ca_items if item + '_num' in merged_data.columns]
@@ -148,8 +153,8 @@ print(f"Public transportation usage mean: {merged_data['pt_usage_mean'].mean():.
 ### Primary Question: Communication Apprehension predicting Public Transportation Usage
 
 ```{python}
-#| label: fig-regression-results
-#| fig-cap: "Regression Results"
+#| label: tbl-regression-results
+#| tbl-cap: "Regression Results"
 
 regression_data = merged_data[['ca_mean', 'pt_usage_mean']].dropna()
 
@@ -171,6 +176,17 @@ if len(regression_data) > 0 and 'ca_mean' in regression_data.columns and 'pt_usa
     print(f"Standard error: {std_err:.4f}")
 else:
     print("*Regression analysis requires actual data files to run properly.*")
+
+table_data = {
+    'R-squared': f"{r_squared:.3f}",
+    'Sample size': len(y),
+    'Slope': f"{slope:.4f}",
+    'Intercept': f"{intercept:.4f}",
+    'p-value': f"{p_value:.4f}",
+    'Standard error': f"{std_err:.4f}"
+}
+
+pd.DataFrame(table_data)
 ```
 
 ## Remaining Questions
